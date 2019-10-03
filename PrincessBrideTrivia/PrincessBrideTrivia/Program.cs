@@ -29,6 +29,10 @@ namespace PrincessBrideTrivia
 
         public static bool AskQuestion(Question question)
         {
+            if (question == null)
+            {
+                return false;
+            }
             DisplayQuestion(question);
 
             string userGuess = GetGuessFromUser();
@@ -54,6 +58,7 @@ namespace PrincessBrideTrivia
 
         public static void DisplayQuestion(Question question)
         {
+            
             Console.WriteLine("Question: " + question.Text);
             for (int i = 0; i < question.Answers.Length; i++)
             {
