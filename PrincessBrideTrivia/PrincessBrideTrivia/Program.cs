@@ -20,7 +20,6 @@ namespace PrincessBrideTrivia
                 }
             }
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
-            Console.WriteLine("questions.Length: " + questions.Length);
         }
 
         public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
