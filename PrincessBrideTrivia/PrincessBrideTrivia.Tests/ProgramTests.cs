@@ -34,7 +34,7 @@ namespace PrincessBrideTrivia.Tests
         {
             // Arrange
             Question question = new Question();
-            question.CorrectAnswerIndex = "1" ; // comment..
+            question.CorrectAnswerIndex = "1";
 
             // Act
             bool displayResult = Program.DisplayResult(userGuess, question);
