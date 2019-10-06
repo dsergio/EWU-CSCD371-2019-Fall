@@ -10,6 +10,8 @@ namespace PrincessBrideTrivia
             string filePath = GetFilePath();
             Question[] questions = LoadQuestions(filePath);
 
+            RandomizeQuestions(questions);
+
             int numberCorrect = 0;
             for (int i = 0; i < questions.Length; i++)
             {
@@ -20,6 +22,18 @@ namespace PrincessBrideTrivia
                 }
             }
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+        }
+
+        public static void RandomizeQuestions(Question[] questions)
+        {
+            Random r = new Random();
+            for (int i = 0; i < questions.Length - 1; i++)
+            {
+                int randomInt = r.Next(i + 1, questions.Length);
+                Question temp = questions[i];
+                questions[i] = questions[randomInt];
+                questions[randomInt] = temp;
+            }
         }
 
         public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
