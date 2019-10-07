@@ -56,28 +56,34 @@ namespace PrincessBrideTrivia.Tests
         }
 
         [TestMethod]
-        public void DisplayQuestions_RandomizeQuestions_QuestionsDifferAfterRandomized()
+        public void DisplayQuestions_RandomizeAnswers_CorrectAnswersDifferAfterRandomized()
         {
             // Arrange
             string filePath = Program.GetFilePath();
             Question[] questions = Program.LoadQuestions(filePath);
             Question[] questionsCopy = new Question[questions.Length];
-            bool questionsAreDifferent = false;
-            questions.CopyTo(questionsCopy, 0);
+            bool correctAnswersAreDifferent = false;
+            for (int i = 0; i < questions.Length; i++)
+            {
+                questionsCopy[i] = new Question();
+                questionsCopy[i].CorrectAnswerIndex = questions[i].CorrectAnswerIndex;
+            }
 
             // Act
-            Program.RandomizeQuestions(questions);
-
+            for (int i = 0; i < questions.Length; i++)
+            {
+                Program.RandomizeAnswers(questions[i]);
+            }
 
             // Assert
             for (int i = 0; i < questions.Length; i++)
             {
-                if (questions[i].Text != questionsCopy[i].Text)
+                if (questions[i].CorrectAnswerIndex != questionsCopy[i].CorrectAnswerIndex)
                 {
-                    questionsAreDifferent = true;
+                    correctAnswersAreDifferent = true;
                 }
             }
-            Assert.IsTrue(questionsAreDifferent);
+            Assert.IsTrue(correctAnswersAreDifferent);
         }
 
         [DataTestMethod]

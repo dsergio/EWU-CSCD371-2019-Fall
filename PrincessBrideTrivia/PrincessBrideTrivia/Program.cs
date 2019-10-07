@@ -10,8 +10,6 @@ namespace PrincessBrideTrivia
             string filePath = GetFilePath();
             Question[] questions = LoadQuestions(filePath);
 
-            RandomizeQuestions(questions);
-
             int numberCorrect = 0;
             for (int i = 0; i < questions.Length; i++)
             {
@@ -22,18 +20,6 @@ namespace PrincessBrideTrivia
                 }
             }
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
-        }
-
-        public static void RandomizeQuestions(Question[] questions)
-        {
-            Random r = new Random();
-            for (int i = 0; i < questions.Length - 1; i++)
-            {
-                int randomInt = r.Next(i + 1, questions.Length);
-                Question temp = questions[i];
-                questions[i] = questions[randomInt];
-                questions[randomInt] = temp;
-            }
         }
 
         public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
@@ -66,9 +52,30 @@ namespace PrincessBrideTrivia
             return false;
         }
 
+        public static void RandomizeAnswers(Question question)
+        {
+            string correctAnswer = question.Answers[Int32.Parse(question.CorrectAnswerIndex) - 1];
+            Random r = new Random();
+            for (int i = 0; i < question.Answers.Length; i++)
+            {
+                int randomInt = r.Next(0, question.Answers.Length);
+                string temp = question.Answers[i];
+                question.Answers[i] = question.Answers[randomInt];
+                question.Answers[randomInt] = temp;
+            }
+            for (int i = 0; i < question.Answers.Length; i++)
+            {
+                if (question.Answers[i] == correctAnswer)
+                {
+                    question.CorrectAnswerIndex = "" + (i + 1);
+                }
+            }
+        }
+
         public static void DisplayQuestion(Question question)
         {
-            
+            RandomizeAnswers(question);
+
             Console.WriteLine("Question: " + question.Text);
             for (int i = 0; i < question.Answers.Length; i++)
             {
