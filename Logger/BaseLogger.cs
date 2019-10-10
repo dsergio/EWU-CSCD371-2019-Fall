@@ -2,7 +2,8 @@
 {
     public abstract class BaseLogger
     {
-        // comment
+        public string ClassName { get; set; }
+
         public abstract void Log(LogLevel logLevel, string message);
     }
 }
