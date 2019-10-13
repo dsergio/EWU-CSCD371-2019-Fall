@@ -8,7 +8,7 @@ namespace Logger
     public class FileLogger : BaseLogger
     {
 
-        public string Path { get; set; }
+        public string Path { get; private set; }
 
         public FileLogger(string path)
         {
@@ -24,9 +24,6 @@ namespace Logger
                 logLevel.ToString(),
                 message
             };
-
-            Console.WriteLine(Path);
-
             File.AppendAllLines(Path, contents);
         }
     }

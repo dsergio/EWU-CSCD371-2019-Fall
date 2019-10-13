@@ -5,27 +5,36 @@ namespace Logger
 {
     public class LogFactory
     {
-        public string FilePath {
+        public string FilePath
+        {
             get;
             private set;
         }
 
         public BaseLogger CreateLogger(string className)
         {
-            if (className == "FileLogger")
+
+            if (FilePath is null)
             {
-                if (FilePath is null)
-                {
-                    return null;
-                }
-                string path = Path.GetFullPath(FilePath);
-                FileLogger fileLogger = new FileLogger(path)
-                {
-                    ClassName = "FileLogger"
-                };
-                return fileLogger;
+                return null;
             }
-            return null;
+            string path = Path.GetFullPath(FilePath);
+            FileLogger fileLogger = new FileLogger(path)
+            {
+                ClassName = className
+            };
+            return fileLogger;
+
+
+        }
+
+        public BaseLogger CreateExtraCreditAdditionalLogger(string className)
+        {
+            ExtraCreditAddtionalLogger extraCreditAddtionalLogger = new ExtraCreditAddtionalLogger()
+            {
+                ClassName = className
+            };
+            return extraCreditAddtionalLogger;
         }
 
         public void ConfigureFileLogger(string path)

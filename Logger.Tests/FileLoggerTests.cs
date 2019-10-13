@@ -13,7 +13,7 @@ namespace Logger.Tests
             LogFactory logFactory = new LogFactory();
 
             // Act
-            BaseLogger fileLogger = logFactory.CreateLogger("FileLogger");
+            BaseLogger fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests));
 
             // Assert
             Assert.IsNull(fileLogger);
@@ -28,11 +28,27 @@ namespace Logger.Tests
 
             // Act
             logFactory.ConfigureFileLogger("logFile123");
-            BaseLogger fileLogger = logFactory.CreateLogger("FileLogger");
+            BaseLogger fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests));
 
             // Assert
             Assert.IsNotNull(fileLogger);
 
+        }
+
+        [DataTestMethod]
+        [DataRow(LogLevel.Debug, "test message")]
+        public void FileLogger_Log(LogLevel logLevel, string message)
+        {
+            // Arrange
+            LogFactory logFactory = new LogFactory();
+            logFactory.ConfigureFileLogger("logFile123");
+            BaseLogger fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests));
+
+            // Act
+            fileLogger.Log(logLevel, message);
+
+            // Assert
+            Assert.IsNotNull(fileLogger);
         }
 
     }
