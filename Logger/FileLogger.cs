@@ -8,7 +8,7 @@ namespace Logger
     public class FileLogger : BaseLogger
     {
 
-        public string Path { get; private set; }
+        private string Path { get; set; }
 
         public FileLogger(string path)
         {

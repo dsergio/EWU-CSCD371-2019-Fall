@@ -5,10 +5,10 @@ namespace Logger
 {
     public class LogFactory
     {
-        public string FilePath
+        private string FilePath
         {
             get;
-            private set;
+            set;
         }
 
         public BaseLogger CreateLogger(string className)
