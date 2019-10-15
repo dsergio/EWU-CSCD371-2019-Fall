@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace Logger.Tests
 {
@@ -36,19 +37,21 @@ namespace Logger.Tests
         }
 
         [DataTestMethod]
-        [DataRow(LogLevel.Debug, "test message")]
-        public void FileLogger_Log(LogLevel logLevel, string message)
+        [DataRow(LogLevel.Debug, "test message", "logFile123")]
+        public void FileLogger_Log_LogFileExists(LogLevel logLevel, string message, string path)
         {
             // Arrange
             LogFactory logFactory = new LogFactory();
-            logFactory.ConfigureFileLogger("logFile123");
+            logFactory.ConfigureFileLogger(path);
             BaseLogger fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests));
 
             // Act
             fileLogger.Log(logLevel, message);
+            bool fileExists = File.Exists(path);
 
             // Assert
-            Assert.IsNotNull(fileLogger);
+            Assert.IsTrue(fileExists);
+
         }
 
     }

@@ -92,5 +92,21 @@ namespace Logger.Tests
             Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
             Assert.AreEqual("Message 42 hi 0.1", logger.LoggedMessages[0].Message);
         }
+
+        [TestMethod]
+        public void MultipleLogs_ExtraCreditLogger_LogCountCorrect()
+        {
+            // Arrange
+            var logFactory = new LogFactory();
+            ExtraCreditAddtionalLogger logger = (ExtraCreditAddtionalLogger)logFactory.CreateExtraCreditAdditionalLogger(nameof(ExtraCreditAdditionalLoggerTests));
+
+            // Act
+            logger.Error("Error 1");
+            logger.Error("Error 2");
+            logger.Debug("Debug 1");
+
+            // Assert
+            Assert.AreEqual(3, logger.LoggedMessages.Count);
+        }
     }
 }

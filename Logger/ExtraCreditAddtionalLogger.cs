@@ -40,6 +40,9 @@ namespace Logger
             {
                 sb.Append(s + " ");
             }
+
+            sb.Append("LoggedMessages.Count: " + LoggedMessages.Count);
+
             string str = sb.ToString();
 
 

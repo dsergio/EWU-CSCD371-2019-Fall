@@ -8,7 +8,7 @@ namespace Logger.Tests
     {
         [DataTestMethod]
         [DataRow("path")]
-        public void LogFactory_CreateLogger_FileLoggerClassName(string path)
+        public void LogFactory_CreateLogger_FileLoggerClassNameSet(string path)
         {
             // Arrange
             LogFactory logFactory = new LogFactory();
@@ -22,7 +22,7 @@ namespace Logger.Tests
         }
 
         [TestMethod]
-        public void LogFactory_CreateLogger_LoggerDoesntExist()
+        public void LogFactory_CreateLogger_LoggerIsNullIfNotConfigured()
         {
             // Arrange
             LogFactory logFactory = new LogFactory();
