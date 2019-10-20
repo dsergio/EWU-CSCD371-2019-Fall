@@ -14,6 +14,8 @@ namespace Inheritance
                 Printer.Print(new Food { Brand = "Frosted Mini Wheats", Upc = "123456789" }, sw);
                 sw.Flush();
             }
+
+            
         }
     }
     public static class Printer

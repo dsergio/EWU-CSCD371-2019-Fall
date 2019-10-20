@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Inheritance
 {
-    class Sheldon : Actor
+    public class Sheldon : Actor
     {
+        public string GetWords()
+        {
+            return "I am Sheldon";
+        }
     }
 }
