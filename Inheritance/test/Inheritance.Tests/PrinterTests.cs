@@ -34,6 +34,12 @@ namespace Inheritance.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void Program_Main()
+        {
+            Program.Main();
+        }
     }
 
     public class TestItem : Item {
