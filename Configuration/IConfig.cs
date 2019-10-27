@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Configuration
 {
     public interface IConfig
     {
-        public bool GetConfigValue(string name, out string? value);
+        bool GetConfigValue(string name, out string? value);
 
-        public bool SetConfigValue(string name, string? value);
+        bool SetConfigValue(string name, string? value);
     }
 }
