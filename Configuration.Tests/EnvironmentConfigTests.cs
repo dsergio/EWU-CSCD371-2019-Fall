@@ -18,13 +18,20 @@ namespace Configuration.Tests
             IConfig environmentConfig = new EnvironmentConfig();
 
             // Act
-            environmentConfig.SetConfigValue(name, value);
-            environmentConfig.GetConfigValue(name, out string? str);
+            bool setConfig = environmentConfig.SetConfigValue(name, value);
+            bool getConfig = environmentConfig.GetConfigValue(name, out string? str);
 
             // Assert
             Assert.AreEqual(value, str);
+            Assert.IsTrue(setConfig);
+            Assert.IsTrue(getConfig);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         [DataTestMethod]
         [DataRow("some name", "some val")]
         [DataRow("somename ", "someval")]
@@ -34,7 +41,7 @@ namespace Configuration.Tests
         [DataRow("somename", null)]
         [DataRow(null, "value")]
         [DataRow(null, null)]
-        public void EnvironmentConfig_SetBadNameOrValue_ReturnsFalse(string name, string value)
+        public void EnvironmentConfig_SetInvalidNameOrValue_ReturnsFalse(string name, string value)
         {
             // Arrange
             IConfig environmentConfig = new EnvironmentConfig();
