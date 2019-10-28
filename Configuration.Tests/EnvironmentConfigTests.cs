@@ -10,7 +10,7 @@ namespace Configuration.Tests
     public class EnvironmentConfigTests
     {
         [DataTestMethod]
-        [DataRow("somename", "someval")]
+        [DataRow("somename", "some val")]
         [DataRow("othername", "other.val")]
         public void EnvironmentConfig_SetConfigValue_GetReturnsCorrectValue(string name, string value)
         {
@@ -34,19 +34,16 @@ namespace Configuration.Tests
         [DataRow("somename", null)]
         [DataRow(null, "value")]
         [DataRow(null, null)]
-        [ExpectedException(typeof(ArgumentException))]
-        [ExcludeFromCodeCoverage]
-        public void EnvironmentConfig_SetBadNameOrValue_ThrowException(string name, string value)
+        public void EnvironmentConfig_SetBadNameOrValue_ReturnsFalse(string name, string value)
         {
             // Arrange
             IConfig environmentConfig = new EnvironmentConfig();
 
             // Act
-            environmentConfig.SetConfigValue(name, value);
-            environmentConfig.GetConfigValue(name, out string? str);
+            bool setValueResult = environmentConfig.SetConfigValue(name, value);
 
             // Assert
-            Assert.AreEqual(value, str);
+            Assert.IsFalse(setValueResult);
         }
     }
 }

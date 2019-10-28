@@ -21,23 +21,27 @@ namespace Configuration
 
         public bool SetConfigValue(string name, string? value)
         {
-            if (IsInputValid(name) && IsInputValid(value))
+            if (IsInputValid(name))
             {
-                Environment.SetEnvironmentVariable(name, value);
-                return true;
+                try
+                {
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        throw new ArgumentException(value);
+                    }
+                    Environment.SetEnvironmentVariable(name, value);
+                    return true;
+                } 
+                catch (ArgumentException)
+                {
+                    return false;
+                }
             }
-            if (!IsInputValid(name))
+            else
             {
-                throw new ArgumentException(name);
+                return false;
             }
-            if (!IsInputValid(value))
-            {
-                throw new ArgumentException(name);
-            }
-            return false;
         }
-
-        
 
         //public static void PrintAllConfigValues()
         //{
