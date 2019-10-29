@@ -12,7 +12,7 @@ namespace Configuration
 
         public FileConfig()
         {
-            FilePath = Path.GetFullPath("config.settings"); 
+            FilePath = Path.GetFullPath("config.settings");
         }
 
         public bool GetConfigValue(string name, out string? value)

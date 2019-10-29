@@ -92,6 +92,9 @@ namespace Configuration.Tests
             bool val1 = results.TryGetValue("dsergio_environmentConfigTestValueabcd", out _);
             bool val2 = results.TryGetValue("dsergio_environmentConfigTestValue123", out _);
 
+            // Clean up
+            fileConfig.DeleteConfigFile();
+
             // Assert
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(val1);

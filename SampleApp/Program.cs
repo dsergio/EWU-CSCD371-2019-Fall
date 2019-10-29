@@ -24,6 +24,21 @@ namespace SampleApp
             }
 
 
+
+            // print out all the configuration settings based on hard coded values for config
+            FileConfig fileConfig = new FileConfig();
+            fileConfig.SetConfigValue("key1", "val1");
+            fileConfig.SetConfigValue("key2", "val2");
+
+            fileConfig.GetConfigValue("key1", out string? val2);
+            Console.WriteLine("key1=" + val2);
+
+            fileConfig.GetConfigValue("key2", out string? val3);
+            Console.WriteLine("key2=" + val3);
+
+            fileConfig.DeleteConfigFile();
+
+
             // Extra Credit: 
             // Create an IConfigGroup that returns a set of setting based on wildcard filters (rather than just a single setting)
             //
@@ -39,17 +54,6 @@ namespace SampleApp
                     }
                 }
             }
-            
-
-            //environmentConfig.GetConfigValue("COMPUTERNAME", out string str);
-            //Console.WriteLine(str);
-
-            //environmentConfig.SetConfigValue("somename", "someval");
-            //environmentConfig.GetConfigValue("somename", out string? str);
-            //Console.WriteLine("str: " + str);
-
-            //IConfig fileConfig = new FileConfig();
-            //fileConfig.SetConfigValue("name", "myval");
         }
     }
 }
