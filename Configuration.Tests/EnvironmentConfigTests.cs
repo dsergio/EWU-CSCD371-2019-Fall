@@ -52,5 +52,30 @@ namespace Configuration.Tests
             // Assert
             Assert.IsFalse(setValueResult);
         }
+
+        /// <summary>
+        /// Extra Credit
+        /// </summary>
+        [TestMethod]
+        public void EnvironmentConfig_GetValuesByFilter_ReturnsCorrectCount()
+        {
+            // Extra Credit
+            // 
+
+            // Arrange
+            EnvironmentConfig environmentConfig = new EnvironmentConfig();
+            environmentConfig.SetConfigValue("dsergio_environmentConfigTestValueabcd", "abcd");
+            environmentConfig.SetConfigValue("dsergio_environmentConfigTestValue123", "123");
+
+            // Act
+            _ = environmentConfig.GetConfigValues("dsergio_environmentConfigTestValue", out Dictionary<string, string?> results);
+            bool val1 = results.TryGetValue("dsergio_environmentConfigTestValueabcd", out _);
+            bool val2 = results.TryGetValue("dsergio_environmentConfigTestValue123", out _);
+
+            // Assert
+            Assert.AreEqual(results.Count, 2);
+            Assert.AreEqual(val1, true);
+            Assert.AreEqual(val2, true);
+        }
     }
 }

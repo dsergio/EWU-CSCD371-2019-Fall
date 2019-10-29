@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MockConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Configuration.Tests
         public void MockConfig_SetConfigValue_GetReturnsCorrectValue()
         {
             // Arrange
-            IConfig mockConfig = new MockConfig();
+            MockConfig mockConfig = new MockConfig();
 
             // Act
             mockConfig.SetConfigValue("myconfig", "myconfigvalue");
@@ -21,7 +22,84 @@ namespace Configuration.Tests
 
             // Assert
             Assert.AreEqual("myconfigvalue", str);
-            Assert.AreEqual(2, ((MockConfig)mockConfig).ConfigList.Count);
+            Assert.AreEqual(2, mockConfig.ConfigList.Count);
+        }
+
+        [TestMethod]
+        public void MockConfig_OverwriteValue_NewValueReturned()
+        {
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+
+            // Act
+            bool setResult1 = mockConfig.SetConfigValue("key1", "firstvalue");
+            bool setResult2 = mockConfig.SetConfigValue("key1", "secondvalue");
+            bool getResult = mockConfig.GetConfigValue("key1", out string? str);
+
+            // Assert
+            Assert.IsTrue(setResult1);
+            Assert.IsTrue(setResult2);
+            Assert.IsNotNull(str);
+            Assert.AreEqual(str, "secondvalue");
+            Assert.IsTrue(getResult);
+        }
+
+        [DataTestMethod]
+        [DataRow("config1", "config1value")]
+        public void MockConfig_SetConfigValidInput_ReturnsTrue(string name, string value)
+        {
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+
+            // Act
+            bool setResult = mockConfig.SetConfigValue(name, value);
+            bool getResult = mockConfig.GetConfigValue(name, out _);
+
+
+            // Assert
+            Assert.IsTrue(setResult);
+            Assert.IsTrue(getResult);
+        }
+
+        [DataTestMethod]
+        [DataRow(null, null)]
+        [DataRow("notnull", null)]
+        [DataRow(null, "notnull")]
+        public void MockConfig_SetConfigInvalidInput_ReturnsFalse(string name, string value)
+        {
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+
+            // Act
+            bool result = mockConfig.SetConfigValue(name, value);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        /// <summary>
+        /// Extra Credit
+        /// </summary>
+        [TestMethod]
+        public void MockConfig_GetValuesByFilter_ReturnsCorrectCount()
+        {
+            // Extra Credit
+            // 
+
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+            mockConfig.SetConfigValue("dsergio_environmentConfigTestValueabcd", "abcd");
+            mockConfig.SetConfigValue("dsergio_environmentConfigTestValue123", "123");
+
+            // Act
+            _ = mockConfig.GetConfigValues("dsergio_environmentConfigTestValue", out Dictionary<string, string?> results);
+            bool val1 = results.TryGetValue("dsergio_environmentConfigTestValueabcd", out _);
+            bool val2 = results.TryGetValue("dsergio_environmentConfigTestValue123", out _);
+
+            // Assert
+            Assert.AreEqual(results.Count, 2);
+            Assert.AreEqual(val1, true);
+            Assert.AreEqual(val2, true);
         }
     }
 }

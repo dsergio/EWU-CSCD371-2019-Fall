@@ -6,20 +6,26 @@ using System.Text.RegularExpressions;
 
 namespace Configuration
 {
-    public class FileConfig : IConfig
+    public class FileConfig : IConfig, IConfigGroup
     {
+        private string FilePath { get; set; }
+
+        public FileConfig()
+        {
+            FilePath = Path.GetFullPath("config.settings"); 
+        }
+
         public bool GetConfigValue(string name, out string? value)
         {
-            string filePath = Path.GetFullPath("config.settings");
-            if (!File.Exists(filePath))
+            if (!File.Exists(FilePath))
             {
                 value = null;
                 return false;
             }
-            string[] lines = File.ReadAllLines(filePath);
+            string[] lines = File.ReadAllLines(FilePath);
             foreach (string line in lines)
             {
-                if (name == line.Split("=")[0])
+                if (line.Split("=").Length == 2 && name == line.Split("=")[0])
                 {
                     value = line.Split("=")[1];
                     return true;
@@ -38,24 +44,46 @@ namespace Configuration
         {
             if (!IsInputValid(name))
             {
-                throw new ArgumentException(name);
+                return false;
             }
-            if (!IsInputValid(value))
+            if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException(name);
+                return false;
             }
 
-            string filePath = Path.GetFullPath("config.settings");
-            Console.WriteLine("filePath: " + filePath);
-            File.AppendAllText(filePath, $"{name}={value}" + Environment.NewLine);
+            File.AppendAllText(FilePath, $"{name}={value}" + Environment.NewLine);
             return true;
         }
 
 
-        public static void DeleteConfigFile()
+        public void DeleteConfigFile()
         {
-            string filePath = Path.GetFullPath("config.settings");
-            File.Delete(filePath);
+            File.Delete(FilePath);
+        }
+
+        public bool GetConfigValues(string filter, out Dictionary<string, string?> results)
+        {
+            if (!File.Exists(FilePath))
+            {
+                results = new Dictionary<string, string?>();
+                return false;
+            }
+            results = new Dictionary<string, string?>();
+
+            string[] lines = File.ReadAllLines(FilePath);
+            foreach (string line in lines)
+            {
+                if (line.Split("=").Length == 2 && (new Regex(filter).Matches(line.Split("=")[0]).Count > 0))
+                {
+                    results.Add(line.Split("=")[0], line.Split("=")[1]);
+                }
+            }
+
+            if (results.Count == 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

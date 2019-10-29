@@ -15,14 +15,14 @@ namespace Configuration.Tests
         public void FileConfig_SetConfigValue_GetReturnsCorrectValue(string name, string value)
         {
             // Arrange
-            IConfig fileConfig = new FileConfig();
+            FileConfig fileConfig = new FileConfig();
 
             // Act
             fileConfig.SetConfigValue(name, value);
             fileConfig.GetConfigValue(name, out string? str);
 
             // Clean up
-            FileConfig.DeleteConfigFile();
+            fileConfig.DeleteConfigFile();
 
             // Assert
             Assert.AreEqual(value, str);
@@ -38,22 +38,23 @@ namespace Configuration.Tests
         [DataRow("somename", null)]
         [DataRow(null, "value")]
         [DataRow(null, null)]
-        [ExpectedException(typeof(ArgumentException))]
-        [ExcludeFromCodeCoverage]
-        public void FileConfig_SetBadNameOrValue_ThrowException(string name, string value)
+        
+        public void FileConfig_SetInvalidNameOrValue_ReturnsFalse(string name, string value)
         {
             // Arrange
-            IConfig fileConfig = new FileConfig();
+            FileConfig fileConfig = new FileConfig();
 
             // Act
-            fileConfig.SetConfigValue(name, value);
-            fileConfig.GetConfigValue(name, out string? str);
+            bool setResult = fileConfig.SetConfigValue(name, value);
+            bool getResult = fileConfig.GetConfigValue(name, out string? str);
 
             // Clean up
-            FileConfig.DeleteConfigFile();
+            fileConfig.DeleteConfigFile();
 
             // Assert
-            Assert.AreEqual(value, str);
+            Assert.IsFalse(setResult);
+            Assert.IsFalse(getResult);
+            Assert.IsNull(str);
         }
 
         [DataTestMethod]
@@ -62,16 +63,39 @@ namespace Configuration.Tests
         public void FileConfig_NoFileGetConfigByName_ReturnsNull(string name)
         {
             // Arrange
-            IConfig fileConfig = new FileConfig();
+            FileConfig fileConfig = new FileConfig();
+            fileConfig.DeleteConfigFile();
 
             // Act
             fileConfig.GetConfigValue(name, out string? str);
 
-            // Clean up
-            FileConfig.DeleteConfigFile();
-
             // Assert
             Assert.IsNull(str);
+        }
+
+        /// <summary>
+        /// Extra Credit
+        /// </summary>
+        [TestMethod]
+        public void FileConfig_GetValuesByFilter_ReturnsCorrectCount()
+        {
+            // Extra Credit
+            // 
+
+            // Arrange
+            FileConfig fileConfig = new FileConfig();
+            fileConfig.SetConfigValue("dsergio_environmentConfigTestValueabcd", "abcd");
+            fileConfig.SetConfigValue("dsergio_environmentConfigTestValue123", "123");
+
+            // Act
+            _ = fileConfig.GetConfigValues("dsergio_environmentConfigTestValue", out Dictionary<string, string?> results);
+            bool val1 = results.TryGetValue("dsergio_environmentConfigTestValueabcd", out _);
+            bool val2 = results.TryGetValue("dsergio_environmentConfigTestValue123", out _);
+
+            // Assert
+            Assert.AreEqual(2, results.Count);
+            Assert.IsTrue(val1);
+            Assert.IsTrue(val2);
         }
     }
 }

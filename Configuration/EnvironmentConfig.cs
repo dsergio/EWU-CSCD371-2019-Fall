@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Configuration
 {
-    public class EnvironmentConfig : IConfig
+    public class EnvironmentConfig : IConfig, IConfigGroup
     {
         public bool GetConfigValue(string name, out string? value)
         {
@@ -43,12 +43,22 @@ namespace Configuration
             }
         }
 
-        //public static void PrintAllConfigValues()
-        //{
-        //    foreach (DictionaryEntry v in Environment.GetEnvironmentVariables())
-        //    {
-        //        Console.WriteLine(v.Key + "=" + v.Value);
-        //    }
-        //}
+        public bool GetConfigValues(string filter, out Dictionary<string, string?> results)
+        {
+            results = new Dictionary<string, string?>();
+            foreach (DictionaryEntry v in Environment.GetEnvironmentVariables())
+            {
+                if (new Regex(filter).Matches(v.Key.ToString()).Count > 0)
+                {
+                    results.Add(v.Key.ToString(), v.Value?.ToString());
+                }
+            }
+
+            if (Environment.GetEnvironmentVariables().Count == 0 || results.Count == 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
