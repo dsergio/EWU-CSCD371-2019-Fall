@@ -73,6 +73,25 @@ namespace Configuration.Tests
             Assert.IsNull(str);
         }
 
+        [TestMethod]
+        public void FileConfig_OverwriteValue_NewValueReturned()
+        {
+            // Arrange
+            FileConfig fileConfig = new FileConfig();
+
+            // Act
+            bool setResult1 = fileConfig.SetConfigValue("key1", "firstvalue");
+            bool setResult2 = fileConfig.SetConfigValue("key1", "secondvalue");
+            bool getResult = fileConfig.GetConfigValue("key1", out string? str);
+
+            // Assert
+            Assert.IsTrue(setResult1);
+            Assert.IsTrue(setResult2);
+            Assert.IsNotNull(str);
+            Assert.AreEqual(str, "secondvalue");
+            Assert.IsTrue(getResult);
+        }
+
         /// <summary>
         /// Extra Credit
         /// </summary>

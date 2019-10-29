@@ -61,7 +61,7 @@ namespace MockConfiguration
                 }
             }
 
-            if (Environment.GetEnvironmentVariables().Count == 0 || results.Count == 0)
+            if (results.Count == 0)
             {
                 return false;
             }

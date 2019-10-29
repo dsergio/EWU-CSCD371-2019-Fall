@@ -50,8 +50,32 @@ namespace Configuration
             {
                 return false;
             }
-
-            File.AppendAllText(FilePath, $"{name}={value}" + Environment.NewLine);
+            if (GetConfigValue(name, out _))
+            {
+                string[] lines = File.ReadAllLines(FilePath);
+                Dictionary<string, string?> newConfig = new Dictionary<string, string?>();
+                foreach (string line in lines)
+                {
+                    if (line.Split("=").Length == 2 && name == line.Split("=")[0])
+                    {
+                        newConfig.Add(name, value);
+                    } 
+                    else
+                    {
+                        newConfig.Add(line.Split("=")[0], line.Split("=")[1]);
+                    }
+                }
+                DeleteConfigFile();
+                foreach (KeyValuePair<string, string?> v in newConfig)
+                {
+                    File.AppendAllText(FilePath, $"{v.Key}={v.Value}" + Environment.NewLine);
+                }
+            }
+            else
+            {
+                File.AppendAllText(FilePath, $"{name}={value}" + Environment.NewLine);
+            }
+            
             return true;
         }
 

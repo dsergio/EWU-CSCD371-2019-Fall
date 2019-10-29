@@ -77,6 +77,36 @@ namespace Configuration.Tests
             Assert.IsFalse(result);
         }
 
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("not null")]
+        public void MockConfig_GetConfigValueInvalidInput_ReturnsFalse(string name)
+        {
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+
+            // Act
+            bool result = mockConfig.GetConfigValue(name, out _);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("notnull")]
+        public void MockConfig_GetConfigValuesInvalidInput_ReturnsFalse(string name)
+        {
+            // Arrange
+            MockConfig mockConfig = new MockConfig();
+
+            // Act
+            bool result = mockConfig.GetConfigValues(name, out _);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         /// <summary>
         /// Extra Credit
         /// </summary>
