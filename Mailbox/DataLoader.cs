@@ -7,27 +7,42 @@ namespace Mailbox
 {
     public class DataLoader : IDisposable
     {
-        public Stream MyStream { get; set; }
+        public Stream Source { get; set; }
 
         public DataLoader(Stream source)
         {
-            MyStream = source ?? throw new System.ArgumentNullException(nameof(source));
+            Source = source ?? throw new System.ArgumentNullException(nameof(source));
         }
 
-        public List<Mailbox> Load()
+        public List<Mailbox>? Load()
         {
-            var reader = new StreamReader(MyStream);
-
+            Source.Position = 0;
+            using var reader = new StreamReader(Source, leaveOpen: true);
             string line = reader.ReadToEnd();
-            List<Mailbox> mailboxes = JsonConvert.DeserializeObject<List<Mailbox>>(line);
 
-            return mailboxes;
+            try
+            {
+                List<Mailbox> mailboxes = JsonConvert.DeserializeObject<List<Mailbox>>(line);
+                return mailboxes;
+
+            } catch (JsonReaderException)
+            {
+                return null;
+            }
         }
 
         public void Save(List<Mailbox> mailboxes)
         {
             string json = JsonConvert.SerializeObject(mailboxes, Formatting.Indented);
+
+            Source.Position = 0;
+            using var writer = new StreamWriter(Source, leaveOpen: true);
+            writer.Write(json);
+
         }
+
+
+
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
