@@ -2,11 +2,11 @@
 {
     public class Mailbox
     {
-        public Size MailboxSize { get; set; }
+        public Sizes MailboxSize { get; set; }
         public (int, int) Location { get; set; }
         public Person Owner { get; set; }
 
-        public Mailbox(Size size, (int, int) location, Person owner)
+        public Mailbox(Sizes size, (int, int) location, Person owner)
         {
             MailboxSize = size;
             Location = location;

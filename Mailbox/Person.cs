@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Mailbox
 {
-    public class Person : IEquatable<Person>
+    public struct Person : IEquatable<Person>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

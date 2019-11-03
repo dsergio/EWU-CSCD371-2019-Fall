@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Mailbox
 {
-    class Program
+    public class Program
     {
         private const int Width = 50;
         private const int Height = 10;
@@ -43,9 +43,9 @@ namespace Mailbox
                         Console.WriteLine("Enter the last name");
                         string lastName = Console.ReadLine();
                         Console.WriteLine("What size?");
-                        if (!Enum.TryParse(Console.ReadLine(), out Size size))
+                        if (!Enum.TryParse(Console.ReadLine(), out Sizes size))
                         {
-                            size = Size.Small;
+                            size = Sizes.Small;
                         }
 
                         if (AddNewMailbox(boxes, firstName, lastName, size) is Mailbox mailbox)
@@ -89,17 +89,17 @@ namespace Mailbox
 
         public static string GetOwnersDisplay(Mailboxes mailboxes)
         {
-            
+            return null;
         }
 
         public static string GetMailboxDetails(Mailboxes mailboxes, int x, int y)
         {
-            
+            return null;
         }
 
-        public static Mailbox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Size size)
+        public static Mailbox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
         {
-            
+            return null;
         }
     }
 }
