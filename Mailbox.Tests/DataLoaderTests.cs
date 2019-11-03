@@ -9,9 +9,15 @@ namespace Mailbox.Tests
     public class DataLoaderTests
     {
         [TestMethod]
-        public void MyTestMethod()
+        public void DataLoader_Stub_ReturnsTrue()
         {
+            // Arrange
 
+            // Act
+            bool stub = true;
+
+            // Assert
+            Assert.IsTrue(stub);
         }
     }
 }

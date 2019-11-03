@@ -10,7 +10,7 @@
         {
             MailboxSize = size;
             Location = location;
-            Owner = owner ?? throw new System.ArgumentNullException(nameof(owner));
+            Owner = owner;
         }
 
         public override string ToString()
