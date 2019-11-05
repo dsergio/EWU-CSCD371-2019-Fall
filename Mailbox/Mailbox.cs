@@ -4,9 +4,9 @@ namespace Mailbox
 {
     public class Mailbox
     {
-        public Sizes MailboxSizes { get; set; }
-        public (int, int) Location { get; set; }
-        public Person Owner { get; set; }
+        public Sizes MailboxSizes { get;  }
+        public (int, int) Location { get; }
+        public Person Owner { get; }
 
         public Mailbox(Sizes sizes, (int, int) location, Person owner)
         {

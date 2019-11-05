@@ -17,39 +17,40 @@ namespace Mailbox
         public List<Mailbox>? Load()
         {
             Source.Position = 0;
-
-
             List<Mailbox> mailboxes = new List<Mailbox>();
 
             try
             {
                 using var reader = new StreamReader(Source, leaveOpen:true);
-
                 string? line = reader.ReadLine();
                 while (line != null)
                 {
-                    Console.WriteLine("line: " + line);
                     Mailbox m = JsonConvert.DeserializeObject<Mailbox>(line);
                     mailboxes.Add(m);
                     line = reader.ReadLine();
                 }
 
+                reader.Dispose();
             }
             catch (JsonReaderException)
             {
                 return null;
             }
+            
             return mailboxes;
         }
 
         public void Save(List<Mailbox> mailboxes)
         {
-            string json = JsonConvert.SerializeObject(mailboxes, Formatting.Indented);
-
             Source.Position = 0;
             using var writer = new StreamWriter(Source, leaveOpen: true);
-            writer.Write(json);
 
+            foreach (Mailbox m in mailboxes)
+            {
+                string jsonString = JsonConvert.SerializeObject(m);
+                writer.WriteLine(jsonString);
+            }
+            writer.Dispose();
         }
 
 

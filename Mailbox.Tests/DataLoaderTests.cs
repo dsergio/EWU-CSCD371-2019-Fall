@@ -16,9 +16,10 @@ namespace Mailbox.Tests
         {
             // Arrange
             MemoryStream memoryStream = new MemoryStream();
-            using var writer = new StreamWriter(memoryStream);
+            using var writer = new StreamWriter(memoryStream, leaveOpen: true);
             writer.WriteLine("this is not JSON");
             writer.Flush();
+            writer.Dispose();
 
             DataLoader dataLoader = new DataLoader(memoryStream);
 
@@ -28,6 +29,7 @@ namespace Mailbox.Tests
             // Assert
             Assert.IsNull(mailBoxes);
 
+            
         }
 
         [TestMethod]
@@ -35,7 +37,7 @@ namespace Mailbox.Tests
         {
             // Arrange
             MemoryStream memoryStream = new MemoryStream();
-            using var writer = new StreamWriter(memoryStream);
+            using var writer = new StreamWriter(memoryStream, leaveOpen: true);
 
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (1,2), p1);
@@ -51,6 +53,8 @@ namespace Mailbox.Tests
                 writer.WriteLine(str);
             }
             writer.Flush();
+            writer.Dispose();
+
             memoryStream.Position = 0;
             DataLoader dataLoader = new DataLoader(memoryStream);
 
@@ -65,6 +69,35 @@ namespace Mailbox.Tests
             Assert.IsNotNull(retMailBoxes);
             Assert.AreEqual(listMailBoxes.Count, retMailBoxes?.Count);
 
+        }
+
+        [TestMethod]
+        public void DataLoader_Save_CorrectData()
+        {
+            // Arrange
+            MemoryStream memoryStream = new MemoryStream();
+            
+
+            Person p1 = new Person("David", "Sergio");
+            Mailbox m1 = new Mailbox(Sizes.Medium, (1, 2), p1);
+            List<Mailbox> listMailBoxes = new List<Mailbox>();
+            listMailBoxes.Add(m1);
+            Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 10, 30);
+            string str = JsonConvert.SerializeObject(m1);
+
+            memoryStream.Position = 0;
+            DataLoader dataLoader = new DataLoader(memoryStream);
+
+            // Act
+            dataLoader.Save(mailBoxes);
+
+            memoryStream.Position = 0;
+            using var reader = new StreamReader(memoryStream, leaveOpen: true);
+            string? line = reader.ReadLine();
+
+            // Assert
+            Assert.IsNotNull(line);
+            Assert.AreEqual(line, str);
         }
     }
 }
