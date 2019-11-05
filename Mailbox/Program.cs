@@ -150,10 +150,7 @@ namespace Mailbox
             }
 
             Person p = new Person(firstName, lastName);
-            Mailbox? newMailbox = null;
-
-            //Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
-            //Trace.AutoFlush = true;
+            Mailbox? newMailbox;
 
             for (int i = 1; i <= mailboxes.Width; i++)
             {
@@ -161,13 +158,6 @@ namespace Mailbox
                 {
                     bool occupied = mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
 
-                    //foreach (Person person in adjacentPeople)
-                    //{
-                    //    Trace.Write(person.ToString() + " ");
-                    //}
-                    //Trace.WriteLine("i: " + i + " j: " + j + " occupied: " + occupied);
-
-                    // then check adjacent mailboxes
                     if (!adjacentPeople.Contains(p) && !occupied)
                     {
                         newMailbox = new Mailbox(size, (i, j), p);
@@ -175,7 +165,6 @@ namespace Mailbox
                     }
                 }
             }
-            
             return null;
         }
     }

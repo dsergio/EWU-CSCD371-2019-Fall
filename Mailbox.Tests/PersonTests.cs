@@ -74,7 +74,7 @@ namespace Mailbox.Tests
             // Arrange
 
             // Act
-            Person p = new Person(firstName, lastName);
+            _ = new Person(firstName, lastName);
 
             // Assert
         }

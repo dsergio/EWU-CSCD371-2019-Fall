@@ -29,7 +29,6 @@ namespace Mailbox
                     mailboxes.Add(m);
                     line = reader.ReadLine();
                 }
-
                 reader.Dispose();
             }
             catch (JsonReaderException)
@@ -42,6 +41,11 @@ namespace Mailbox
 
         public void Save(List<Mailbox> mailboxes)
         {
+            if (mailboxes is null)
+            {
+                throw new ArgumentNullException(nameof(mailboxes));
+            }
+
             Source.Position = 0;
             using var writer = new StreamWriter(Source, leaveOpen: true);
 

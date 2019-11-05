@@ -15,11 +15,13 @@ namespace Mailbox.Tests
             // Arrange
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (1, 1), p1);
-            List<Mailbox> listMailBoxes = new List<Mailbox>();
-            listMailBoxes.Add(m1);
+            List<Mailbox> listMailBoxes = new List<Mailbox>
+            {
+                m1
+            };
 
             // Act
-            Mailboxes mailBoxes = new Mailboxes(listMailBoxes, -1, 1);
+            _ = new Mailboxes(listMailBoxes, -1, 1);
 
             // Assert
 
@@ -31,8 +33,10 @@ namespace Mailbox.Tests
             // Arrange
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (0, 0), p1);
-            List<Mailbox> listMailBoxes = new List<Mailbox>();
-            listMailBoxes.Add(m1);
+            List<Mailbox> listMailBoxes = new List<Mailbox>
+            {
+                m1
+            };
 
             // Act
             Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 1, 1);
@@ -48,8 +52,10 @@ namespace Mailbox.Tests
             // Arrange
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (0, 0), p1);
-            List<Mailbox> listMailBoxes = new List<Mailbox>();
-            listMailBoxes.Add(m1);
+            List<Mailbox> listMailBoxes = new List<Mailbox>
+            {
+                m1
+            };
 
             // Act
             Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 10, 10);

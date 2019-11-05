@@ -42,9 +42,11 @@ namespace Mailbox.Tests
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (1,2), p1);
             Mailbox m2 = new Mailbox(Sizes.Medium, (2, 3), p1);
-            List<Mailbox> listMailBoxes = new List<Mailbox>();
-            listMailBoxes.Add(m1);
-            listMailBoxes.Add(m2);
+            List<Mailbox> listMailBoxes = new List<Mailbox>
+            {
+                m1,
+                m2
+            };
             Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 10, 30);
             foreach (Mailbox m in listMailBoxes)
             {
@@ -80,8 +82,10 @@ namespace Mailbox.Tests
 
             Person p1 = new Person("David", "Sergio");
             Mailbox m1 = new Mailbox(Sizes.Medium, (1, 2), p1);
-            List<Mailbox> listMailBoxes = new List<Mailbox>();
-            listMailBoxes.Add(m1);
+            List<Mailbox> listMailBoxes = new List<Mailbox>
+            {
+                m1
+            };
             Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 10, 30);
             string str = JsonConvert.SerializeObject(m1);
 

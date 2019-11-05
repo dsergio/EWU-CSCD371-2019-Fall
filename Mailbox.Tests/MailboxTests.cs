@@ -46,10 +46,10 @@ namespace Mailbox.Tests
         {
             // Arrange
             Person p = new Person("David", "Duchovny");
-            
+
 
             // Act
-            Mailbox mailbox = new Mailbox(size, (2, 3), p);
+            _ = new Mailbox(size, (2, 3), p);
 
             // Assert
 
