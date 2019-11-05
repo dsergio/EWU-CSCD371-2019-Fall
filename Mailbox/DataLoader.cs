@@ -25,7 +25,7 @@ namespace Mailbox
             {
                 using var reader = new StreamReader(Source, leaveOpen:true);
 
-                string line = reader.ReadLine();
+                string? line = reader.ReadLine();
                 while (line != null)
                 {
                     Console.WriteLine("line: " + line);
