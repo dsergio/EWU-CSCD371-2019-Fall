@@ -90,11 +90,39 @@ namespace Mailbox
 
         public static string GetOwnersDisplay(Mailboxes mailboxes)
         {
-            return null;
+            if (mailboxes is null)
+            {
+                throw new ArgumentNullException(nameof(mailboxes));
+            }
+
+            HashSet<Person> people = new HashSet<Person>();
+            foreach (Mailbox m in mailboxes)
+            {
+                people.Add(m.Owner);
+            }
+
+            List<string> peopleString = new List<string>();
+            foreach (Person p in people)
+            {
+                peopleString.Add(p.ToString());
+            }
+            return string.Join(", ", peopleString.ToArray());
         }
 
         public static string GetMailboxDetails(Mailboxes mailboxes, int x, int y)
         {
+            List<string> list = new List<string>();
+            foreach (Mailbox m in mailboxes)
+            {
+                if (m.Location.Item1 == x && m.Location.Item2 == y)
+                {
+                    list.Add(m.ToString());
+                }
+            }
+            if (list.Count > 0)
+            {
+                return string.Join(", ", list.ToArray());
+            }
             return null;
         }
 
