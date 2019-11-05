@@ -109,8 +109,13 @@ namespace Mailbox
             return string.Join(", ", peopleString.ToArray());
         }
 
-        public static string GetMailboxDetails(Mailboxes mailboxes, int x, int y)
+        public static string? GetMailboxDetails(Mailboxes mailboxes, int x, int y)
         {
+            if (mailboxes is null)
+            {
+                throw new ArgumentNullException(nameof(mailboxes));
+            }
+
             List<string> list = new List<string>();
             foreach (Mailbox m in mailboxes)
             {
@@ -126,9 +131,51 @@ namespace Mailbox
             return null;
         }
 
-        public static Mailbox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
+        public static Mailbox? AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
         {
-            return null;
+            if (mailboxes is null)
+            {
+                throw new ArgumentNullException(nameof(mailboxes));
+            }
+
+            if (firstName is null)
+            {
+                throw new ArgumentNullException(nameof(firstName));
+            }
+
+            if (lastName is null)
+            {
+                throw new ArgumentNullException(nameof(lastName));
+            }
+
+            Person p = new Person(firstName, lastName);
+            Mailbox? newMailbox = null;
+
+            for (int i = 0; i < mailboxes.Width; i++)
+            {
+                for (int j = 0; j < mailboxes.Height; j++)
+                {
+                    mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
+
+                    // first check if unoccupied
+                    bool occupied = false;
+                    foreach (Mailbox m in mailboxes)
+                    {
+                        if (m.Location.Item1 == i && m.Location.Item2 == j)
+                        {
+                            occupied = true;
+                        }
+                    }
+
+                    // then check adjacent mailboxes
+                    if (!adjacentPeople.Contains(p) && !occupied)
+                    {
+                        newMailbox = new Mailbox(size, (i, j), p);
+                    }
+                }
+            }
+            
+            return newMailbox;
         }
     }
 }

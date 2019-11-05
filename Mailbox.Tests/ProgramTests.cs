@@ -9,7 +9,7 @@ namespace Mailbox.Tests
     public class ProgramTests
     {
         [TestMethod]
-        public void Program_GetOwnersDisplay_ReturnsCorrectData()
+        public void Program_GetOwnersDisplayWithData_ReturnsCorrectData()
         {
             // Arrange
             Person p1 = new Person("David", "Sergio");
@@ -30,6 +30,20 @@ namespace Mailbox.Tests
 
             // Assert
             Assert.AreEqual(str, "David Sergio, David Duchovny");
+        }
+
+        [TestMethod]
+        public void Program_GetOwnersDisplayNoData_ReturnsCorrectData()
+        {
+            // Arrange
+            List<Mailbox> listMailBoxes = new List<Mailbox>();
+            Mailboxes mailBoxes = new Mailboxes(listMailBoxes, 10, 30);
+
+            // Act
+            string str = Program.GetOwnersDisplay(mailBoxes);
+
+            // Assert
+            Assert.AreEqual(str, "");
         }
 
         [TestMethod]
