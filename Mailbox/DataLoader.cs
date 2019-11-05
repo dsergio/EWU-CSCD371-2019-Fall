@@ -17,18 +17,29 @@ namespace Mailbox
         public List<Mailbox>? Load()
         {
             Source.Position = 0;
-            using var reader = new StreamReader(Source, leaveOpen: true);
-            string line = reader.ReadToEnd();
+
+
+            List<Mailbox> mailboxes = new List<Mailbox>();
 
             try
             {
-                List<Mailbox> mailboxes = JsonConvert.DeserializeObject<List<Mailbox>>(line);
-                return mailboxes;
+                using var reader = new StreamReader(Source, leaveOpen:true);
 
-            } catch (JsonReaderException)
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    Console.WriteLine("line: " + line);
+                    Mailbox m = JsonConvert.DeserializeObject<Mailbox>(line);
+                    mailboxes.Add(m);
+                    line = reader.ReadLine();
+                }
+
+            }
+            catch (JsonReaderException)
             {
                 return null;
             }
+            return mailboxes;
         }
 
         public void Save(List<Mailbox> mailboxes)
@@ -54,6 +65,7 @@ namespace Mailbox
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
+                    Source.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

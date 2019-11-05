@@ -19,14 +19,6 @@ namespace Mailbox
                 throw new ArgumentException("invalid size", nameof(sizes));
             }
             MailboxSizes = sizes;
-            if (location.Item1 < 0 || location.Item1 > 30)
-            {
-                throw new ArgumentException(nameof(location));
-            }
-            if (location.Item2 < 0 || location.Item2 > 10)
-            {
-                throw new ArgumentException(nameof(location));
-            }
             Location = location;
             Owner = owner;
         }
