@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
@@ -11,7 +12,7 @@ namespace Mailbox
         private const int Width = 50;
         private const int Height = 10;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Main does not need to be unit tested.
             using var dataLoader = new DataLoader(File.Open("Mailboxes.json", FileMode.OpenOrCreate, FileAccess.ReadWrite));
@@ -151,31 +152,31 @@ namespace Mailbox
             Person p = new Person(firstName, lastName);
             Mailbox? newMailbox = null;
 
-            for (int i = 0; i < mailboxes.Width; i++)
-            {
-                for (int j = 0; j < mailboxes.Height; j++)
-                {
-                    mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
+            //Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            //Trace.AutoFlush = true;
 
-                    // first check if unoccupied
-                    bool occupied = false;
-                    foreach (Mailbox m in mailboxes)
-                    {
-                        if (m.Location.Item1 == i && m.Location.Item2 == j)
-                        {
-                            occupied = true;
-                        }
-                    }
+            for (int i = 1; i <= mailboxes.Width; i++)
+            {
+                for (int j = 1; j <= mailboxes.Height; j++)
+                {
+                    bool occupied = mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
+
+                    //foreach (Person person in adjacentPeople)
+                    //{
+                    //    Trace.Write(person.ToString() + " ");
+                    //}
+                    //Trace.WriteLine("i: " + i + " j: " + j + " occupied: " + occupied);
 
                     // then check adjacent mailboxes
                     if (!adjacentPeople.Contains(p) && !occupied)
                     {
                         newMailbox = new Mailbox(size, (i, j), p);
+                        return newMailbox;
                     }
                 }
             }
             
-            return newMailbox;
+            return null;
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.ProgramTests.Program_GetOwnersDisplayWithData_ReturnsCorrectData")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.ProgramTests.Program_GetOwnersDisplayNoData_ReturnsCorrectData")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.ProgramTests.Program_GetMailboxDetails_ReturnsCorrectData")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.ProgramTests.Program_AddNewMailbox_NotNullAndCorrectPosition")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.ProgramTests.Program_AddNewMailboxFull_ReturnsNull")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.PersonTests.Person_EqualsOperator_ReturnsTrue")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.PersonTests.Person_EqualsOperator_ReturnsFalse")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.MailboxTests.Mailbox_ToString_ReturnsCorrectValue")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.DataLoaderTests.DataLoader_NonJSON_ReturnsNull")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test methods should contain underscores", Scope = "member", Target = "~M:Mailbox.Tests.DataLoaderTests.DataLoader_ValidData_ReturnsMailboxes")]
