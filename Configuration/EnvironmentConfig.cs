@@ -14,8 +14,10 @@ namespace Configuration
             return !(value is null);
         }
 
+        // MMM Comment: Nice refactoring.
         private bool IsInputValid(string? str)
         {
+            // MMM Comment: Nice job with the regex.
             return !(string.IsNullOrEmpty(str) || (new Regex("[\\s=]+").Matches(str).Count > 0));
         }
 
@@ -25,6 +27,7 @@ namespace Configuration
             {
                 try
                 {
+                    // MMM Comment: Why not use IsInputValid on value?
                     if (string.IsNullOrEmpty(value))
                     {
                         throw new ArgumentException(value);
@@ -43,6 +46,7 @@ namespace Configuration
             }
         }
 
+        // MMM Comment: Nice given we haven't covered creating iterators yet. :)
         public bool GetConfigValues(string filter, out Dictionary<string, string?> results)
         {
             results = new Dictionary<string, string?>();

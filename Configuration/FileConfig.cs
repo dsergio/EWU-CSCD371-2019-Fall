@@ -35,6 +35,7 @@ namespace Configuration
             return false;
         }
 
+        // MMM Comment: Didn't you have the same in EnvironmetConfig?  Why not refactor?
         private bool IsInputValid(string? str)
         {
             return !(string.IsNullOrEmpty(str) || (new Regex("[\\s=]+").Matches(str).Count > 0));
@@ -56,6 +57,7 @@ namespace Configuration
                 Dictionary<string, string?> newConfig = new Dictionary<string, string?>();
                 foreach (string line in lines)
                 {
+                    // MMM Comment: Great to see the validation that split works.
                     if (line.Split("=").Length == 2 && name == line.Split("=")[0])
                     {
                         newConfig.Add(name, value);
@@ -79,7 +81,7 @@ namespace Configuration
             return true;
         }
 
-
+        // MMM Comment: Not sure this was worth refactoring as File.Delete seems pretty clear.
         public void DeleteConfigFile()
         {
             File.Delete(FilePath);
@@ -87,6 +89,8 @@ namespace Configuration
 
         public bool GetConfigValues(string filter, out Dictionary<string, string?> results)
         {
+            // MMM Comment: Mulitple constructor calls here seems like it could be simplified
+            // by assigning results before the if.
             if (!File.Exists(FilePath))
             {
                 results = new Dictionary<string, string?>();
@@ -97,12 +101,15 @@ namespace Configuration
             string[] lines = File.ReadAllLines(FilePath);
             foreach (string line in lines)
             {
+                // MMM Comment: Regex again...  If you go this far, you may as well use
+                // named groups. :)
                 if (line.Split("=").Length == 2 && (new Regex(filter).Matches(line.Split("=")[0]).Count > 0))
                 {
                     results.Add(line.Split("=")[0], line.Split("=")[1]);
                 }
             }
 
+            // MMM Comment: Just return (results.Count != 0)
             if (results.Count == 0)
             {
                 return false;
