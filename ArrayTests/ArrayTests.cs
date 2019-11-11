@@ -10,7 +10,7 @@ namespace ArrayTests
         public void Array_SetGetInBounds_ReturnsCorrectValue()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr.Set(0, "hi");
@@ -25,7 +25,7 @@ namespace ArrayTests
         public void Array_SetInBoundsGetOutBounds_ReturnsFalseAndNull()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr.Set(0, "hi");
@@ -40,7 +40,7 @@ namespace ArrayTests
         public void Array_SetGetOutBounds_ReturnsFalseAndNull()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr.Set(15, "hi");
@@ -55,7 +55,7 @@ namespace ArrayTests
         public void Array_Contains_ReturnsFalse()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr.Set(5, "hi");
@@ -69,7 +69,7 @@ namespace ArrayTests
         public void Array_Contains_ReturnsTrue()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr.Set(5, "hi");
@@ -83,7 +83,7 @@ namespace ArrayTests
         public void Array_IndexOperatorInBounds_ReturnsCorrectValue()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr[5] = "hi";
@@ -98,7 +98,7 @@ namespace ArrayTests
         public void Array_IndexOperatorOutBounds_ReturnsCorrectValue()
         {
             // Arrange
-            Array<string> arr = new Array<string>(10);
+            ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
             arr[15] = "hi";
