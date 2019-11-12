@@ -8,6 +8,7 @@ namespace Assignment6
     /// Extra Credit: cast operator to a C# array or a `System.Collections.Generic.List<T>`
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// 
     public class ArrayCollection<T> : ICollection<T>
     {
         private List<T> Data { get; set; }
@@ -18,7 +19,11 @@ namespace Assignment6
 
         public ArrayCollection(int capacity)
         {
-            Data = new List<T>();
+            if (capacity <= 0 || capacity > Int32.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(capacity));
+            }
+            Data = new List<T>(capacity);
             Capacity = capacity;
             IsReadOnly = false;
         }
@@ -37,7 +42,11 @@ namespace Assignment6
 
         public ArrayCollection(int capacity, bool isReadOnly)
         {
-            Data = new List<T>();
+            if (capacity <= 0 || capacity > Int32.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(capacity));
+            }
+            Data = new List<T>(capacity);
             Capacity = capacity;
             IsReadOnly = isReadOnly;
         }
@@ -79,11 +88,14 @@ namespace Assignment6
             {
                 throw new ArgumentNullException(nameof(item));
             }
-            if (!IsReadOnly)
+            if (!IsReadOnly && Count <= Capacity)
             {
                 Data.Add(item);
             }
-            
+            if (Count > Capacity)
+            {
+                throw new ArgumentException("Array is full");
+            }
         }
 
         public void Clear()
@@ -126,7 +138,7 @@ namespace Assignment6
         }
 
         /// <summary>
-        /// Extra Credit
+        /// Extra Credit: cast operator to a C# array or a `System.Collections.Generic.List<T>`
         /// 
         /// </summary>
         /// <param name="arr"></param>
@@ -147,7 +159,7 @@ namespace Assignment6
         }
 
         /// <summary>
-        /// Extra Credit
+        /// Extra Credit: cast operator to a C# array or a `System.Collections.Generic.List<T>`
         /// 
         /// </summary>
         /// <param name="arr"></param>

@@ -55,18 +55,62 @@ namespace Assignment6
             Assert.IsFalse(ret);
         }
 
-        [TestMethod]
-        public void ArrayString_Contains_ReturnsTrue()
+        [DataTestMethod]
+        [DataRow("hi")]
+        [DataRow("bye")]
+        public void ArrayString_Contains_ReturnsTrue(string s)
         {
             // Arrange
             ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
-            arr.Add("hi");
-            bool ret = arr.Contains("hi");
+            arr.Add(s);
+            bool ret = arr.Contains(s);
 
             // Assert
             Assert.IsTrue(ret);
+        }
+
+        [DataTestMethod]
+        [DataRow(0, true)]
+        [DataRow(-2, true)]
+        [DataRow(-2, false)]
+        [DataRow(0, false)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ArrayStringInvalidCapacityAndReadOnly_ThrowsException(int capacity, bool isReadOnly)
+        {
+            // Arrange
+
+            // Act
+            if (isReadOnly == true)
+            {
+                ArrayCollection<string> arr1 = new ArrayCollection<string>(capacity, true);
+
+            } else
+            {
+                ArrayCollection<string> arr = new ArrayCollection<string>(capacity, false);
+            }
+            
+
+            // Assert
+
+        }
+
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(-2)]
+        [DataRow(-4)]
+        [DataRow(-6)]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ArrayStringInvalidCapacity_ThrowsException(int capacity)
+        {
+            // Arrange
+
+            // Act
+            ArrayCollection<string> arr1 = new ArrayCollection<string>(capacity);
+
+            // Assert
+
         }
 
         [TestMethod]
@@ -380,6 +424,39 @@ namespace Assignment6
 
             // Assert
             Assert.AreEqual(0, arr.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [ExcludeFromCodeCoverage]
+        public void ArrayInt_AddingTooManyItems_ThrowsException()
+        {
+            // Arrange
+            ArrayCollection<int> arr = new ArrayCollection<int>(3);
+
+            // Act
+            arr.Add(1);
+            arr.Add(2);
+            arr.Add(3);
+            arr.Add(4);
+
+            // Assert
+
+        }
+
+        [TestMethod]
+        public void ArrayInt_AddingToCapacity_ReturnsCorrectValue()
+        {
+            // Arrange
+            ArrayCollection<int> arr = new ArrayCollection<int>(3);
+
+            // Act
+            arr.Add(10);
+            arr.Add(20);
+            arr.Add(30);
+
+            // Assert
+            Assert.AreEqual<int>(30, arr[2]);
         }
 
         /// <summary>
