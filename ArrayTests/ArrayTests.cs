@@ -334,6 +334,21 @@ namespace ArrayTests
             
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [ExcludeFromCodeCoverage]
+        public void ArrayInt_SetItemInvalid_ThrowsException()
+        {
+            // Arrange
+            ArrayCollection<int> arr = new ArrayCollection<int>(10);
+
+            // Act
+            arr[-5] = 5;
+
+            // Assert
+
+        }
+
         [DataTestMethod]
         [DataRow(new string[] { "one", "two", "three"})]
         [DataRow(new string[] { "", "two", "" })]

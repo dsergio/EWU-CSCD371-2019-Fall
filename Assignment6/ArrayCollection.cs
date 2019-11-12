@@ -56,7 +56,11 @@ namespace Assignment6
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
-                if (!IsReadOnly && i < Count)
+                if (i >= Count || i < 0)
+                {
+                    throw new ArgumentException("Index out of range.", nameof(i));
+                }
+                if (!IsReadOnly)
                 {
                     Data[i] = value;
                 }
