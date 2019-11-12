@@ -1,12 +1,10 @@
-using Assignment6;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace ArrayTests
+namespace Assignment6
 {
     [TestClass]
     public class ArrayTests
@@ -88,7 +86,7 @@ namespace ArrayTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         [ExcludeFromCodeCoverage]
         public void ArrayString_IndexOperatorOutBounds_ThrowsException()
         {
@@ -155,7 +153,7 @@ namespace ArrayTests
             ArrayCollection<string> arr = new ArrayCollection<string>(10);
 
             // Act
-            arr.Add(null);
+            arr.Add(null!);
             
 
             // Assert
@@ -328,14 +326,14 @@ namespace ArrayTests
             // Act
             arr.Add("hi");
             arr.Add("ho");
-            arr[0] = null;
+            arr[0] = null!;
 
             // Assert
             
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         [ExcludeFromCodeCoverage]
         public void ArrayInt_SetItemInvalid_ThrowsException()
         {

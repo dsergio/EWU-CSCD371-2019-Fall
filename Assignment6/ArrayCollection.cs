@@ -4,14 +4,12 @@ using System.Collections.Generic;
 
 namespace Assignment6
 {
-    public class ArrayCollection<T> : ICollection<T> // where T: class
+    public class ArrayCollection<T> : ICollection<T>
     {
         private List<T> Data { get; set; }
         public int Capacity { get; private set; }
         public int Count => Data.Count;
-
         public bool IsReadOnly { get; set; }
-
         
 
         public ArrayCollection(int capacity)
@@ -19,7 +17,6 @@ namespace Assignment6
             Data = new List<T>();
             Capacity = capacity;
             IsReadOnly = false;
-
         }
 
         public ArrayCollection(ICollection<T> collection)
@@ -47,7 +44,7 @@ namespace Assignment6
             {
                 if (i >= Capacity || i < 0)
                 {
-                    throw new ArgumentException("Index out of range.", nameof(i));
+                    throw new ArgumentOutOfRangeException(nameof(i));
                 }
                 return Data[i];
             }
@@ -58,7 +55,7 @@ namespace Assignment6
                 }
                 if (i >= Count || i < 0)
                 {
-                    throw new ArgumentException("Index out of range.", nameof(i));
+                    throw new ArgumentOutOfRangeException(nameof(i));
                 }
                 if (!IsReadOnly)
                 {
