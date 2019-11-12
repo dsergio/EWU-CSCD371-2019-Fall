@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Assignment6
 {
+    /// <summary>
+    /// Extra Credit: cast operator to a C# array or a `System.Collections.Generic.List<T>`
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ArrayCollection<T> : ICollection<T>
     {
         private List<T> Data { get; set; }

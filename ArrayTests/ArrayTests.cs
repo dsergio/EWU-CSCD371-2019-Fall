@@ -6,6 +6,10 @@ using System.Text;
 
 namespace Assignment6
 {
+    /// <summary>
+    /// Extra Credit: cast operator to a C# array or a `System.Collections.Generic.List<T>`
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [TestClass]
     public class ArrayTests
     {
