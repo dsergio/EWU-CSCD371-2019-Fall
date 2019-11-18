@@ -26,12 +26,8 @@ namespace Sorter.Tests
             return i < j;
         };
 
-        [TestMethod]
-        public void SortUtility_ShouldSortAscending_UsingAnAnonymousMethod()
+        private void TraceOutput(int[] arr)
         {
-            // Arrange
-            int[] arr = getRandomArray(10);
-
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
             Trace.WriteLine("");
             Trace.WriteLine("Unsorted: ");
@@ -40,18 +36,25 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
             }
             Trace.WriteLine("");
-            Trace.WriteLine("Sorted: ");
+        }
+
+        [TestMethod]
+        public void SortUtility_ShouldSortAscending_UsingAnAnonymousMethod()
+        {
+            // Arrange
+            int[] arr = getRandomArray(10);
+            TraceOutput(arr);
 
             // Act
             SortUtility.Sort(arr, lessThan);
 
             // Assert
-            for (int i = 0; i < arr.Length; i++)
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
             {
                 Trace.Write(arr[i] + " ");
+                Assert.IsTrue(arr[i] <= arr[i + 1]);
             }
-            Trace.WriteLine("");
-            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -59,10 +62,18 @@ namespace Sorter.Tests
         {
             // Arrange
             int[] arr = getRandomArray(10);
+            TraceOutput(arr);
 
             // Act
+            SortUtility.Sort(arr, (i, j) => i > j);
 
             // Assert
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Trace.Write(arr[i] + " ");
+                Assert.IsTrue(arr[i] >= arr[i + 1]);
+            }
         }
 
         [TestMethod]
@@ -70,10 +81,21 @@ namespace Sorter.Tests
         {
             // Arrange
             int[] arr = getRandomArray(10);
+            TraceOutput(arr);
 
             // Act
+            SortUtility.Sort(arr, (i, j) =>
+            {
+                return i < j;
+            });
 
             // Assert
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Trace.Write(arr[i] + " ");
+                Assert.IsTrue(arr[i] <= arr[i + 1]);
+            }
         }
     }
 }
