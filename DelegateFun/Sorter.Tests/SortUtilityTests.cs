@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using static Sorter.SortUtility;
 
 namespace Sorter.Tests
@@ -60,7 +61,28 @@ namespace Sorter.Tests
         }
 
         [TestMethod]
+        public void SortUtility_ShouldSortDescending_UsingAnAnonymousMethod()
+        {
+            // Arrange
+            int[] arr = getRandomArray(10);
+            TraceOutput(arr);
+
+            // Act
+            SortUtility.Sort(arr, _GreaterThan);
+
+            // Assert
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Trace.Write(arr[i] + " ");
+                Assert.IsTrue(arr[i] >= arr[i + 1]);
+            }
+            Trace.WriteLine(arr[arr.Length - 1]);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
+        [ExcludeFromCodeCoverage]
         public void SortUtility_NullArraySortAscending_UsingAnAnonymousMethod()
         {
             // Arrange
@@ -69,7 +91,21 @@ namespace Sorter.Tests
             SortUtility.Sort(null!, _LessThan);
 
             // Assert
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        [ExcludeFromCodeCoverage]
+        public void SortUtility_ArraySort_NullDelegate()
+        {
+            // Arrange
+            int[] arr = getRandomArray(10);
+            TraceOutput(arr);
+
+            // Act
+            SortUtility.Sort(arr, null!);
+
+            // Assert
         }
 
         [TestMethod]
