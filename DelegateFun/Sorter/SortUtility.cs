@@ -17,7 +17,7 @@ namespace Sorter
         private static void QuickSort(int[] arr, int low, int high, compareFunction compare)
         {
             int pivot = arr[low + (high - low) / 2];
-            Console.WriteLine("pivot: " + pivot + " low: " + low + " high: " + high);
+            //Console.WriteLine("pivot: " + pivot + " low: " + low + " high: " + high);
 
             int i = low;
             int j = high;

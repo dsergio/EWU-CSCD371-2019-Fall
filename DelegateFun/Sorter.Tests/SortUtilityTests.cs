@@ -55,6 +55,7 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] <= arr[i + 1]);
             }
+            Trace.WriteLine(arr[arr.Length - 1]);
         }
 
         [TestMethod]
@@ -74,6 +75,7 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] >= arr[i + 1]);
             }
+            Trace.WriteLine(arr[arr.Length - 1]);
         }
 
         [TestMethod]
@@ -86,7 +88,9 @@ namespace Sorter.Tests
             // Act
             SortUtility.Sort(arr, (i, j) =>
             {
-                return i < j;
+                int x = i % 2;
+                int y = j % 2;
+                return x < y;
             });
 
             // Assert
@@ -94,8 +98,10 @@ namespace Sorter.Tests
             for (int i = 0; i < arr.Length - 1; i++)
             {
                 Trace.Write(arr[i] + " ");
-                Assert.IsTrue(arr[i] <= arr[i + 1]);
+                Assert.IsTrue(arr[i] % 2 <= arr[i + 1] % 2);
             }
+            Trace.WriteLine(arr[arr.Length - 1]);
+            //Assert.IsTrue(true);
         }
     }
 }
