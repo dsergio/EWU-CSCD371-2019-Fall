@@ -19,10 +19,11 @@ namespace Sorter.Tests
             return arr;
         }
 
-        compareFunction greaterThan = delegate (int i, int j) {
+        private readonly compareFunction _GreaterThan = delegate (int i, int j)
+        {
             return i > j;
         };
-        compareFunction lessThan = delegate (int i, int j) {
+        private readonly compareFunction _LessThan = delegate (int i, int j) {
             return i < j;
         };
 
@@ -46,7 +47,7 @@ namespace Sorter.Tests
             TraceOutput(arr);
 
             // Act
-            SortUtility.Sort(arr, lessThan);
+            SortUtility.Sort(arr, _LessThan);
 
             // Assert
             Trace.WriteLine("Sorted: ");
@@ -59,7 +60,20 @@ namespace Sorter.Tests
         }
 
         [TestMethod]
-        public void SortUtility_ShouldSortAscending_UsingLambdaExpression()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SortUtility_NullArraySortAscending_UsingAnAnonymousMethod()
+        {
+            // Arrange
+
+            // Act
+            SortUtility.Sort(null!, _LessThan);
+
+            // Assert
+
+        }
+
+        [TestMethod]
+        public void SortUtility_ShouldSortDescending_UsingLambdaExpression()
         {
             // Arrange
             int[] arr = getRandomArray(10);
@@ -79,7 +93,7 @@ namespace Sorter.Tests
         }
 
         [TestMethod]
-        public void SortUtility_ShouldSortAscending_UsingLambdaStatement()
+        public void SortUtility_ShouldSortBase2Ascending_UsingLambdaStatement()
         {
             // Arrange
             int[] arr = getRandomArray(10);

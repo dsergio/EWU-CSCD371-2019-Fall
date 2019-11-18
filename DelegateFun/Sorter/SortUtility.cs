@@ -2,7 +2,7 @@
 
 namespace Sorter
 {
-    public class SortUtility
+    public sealed class SortUtility
     {
         // Sort method should be implemented here
         // It should accept an int[] and a delegate you define that performs the actual comparison
@@ -11,6 +11,16 @@ namespace Sorter
 
         public static void Sort(int[] arr, compareFunction compare)
         {
+            if (arr is null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            if (compare is null)
+            {
+                throw new ArgumentNullException(nameof(compare));
+            }
+
             QuickSort(arr, 0, arr.Length - 1, compare);
         }
 
