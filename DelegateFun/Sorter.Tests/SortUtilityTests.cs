@@ -20,11 +20,11 @@ namespace Sorter.Tests
             return arr;
         }
 
-        private readonly compareFunction _GreaterThan = delegate (int i, int j)
+        private static readonly compareFunction _GreaterThan = delegate (int i, int j)
         {
             return i > j;
         };
-        private readonly compareFunction _LessThan = delegate (int i, int j) {
+        private static readonly compareFunction _LessThan = delegate (int i, int j) {
             return i < j;
         };
 
@@ -56,6 +56,58 @@ namespace Sorter.Tests
             {
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] <= arr[i + 1]);
+            }
+            Trace.WriteLine(arr[arr.Length - 1]);
+        }
+
+        [DataTestMethod]
+        [DataRow(new int[] { 2, 1, 3})]
+        [DataRow(new int[] { -4, 5, 0, 9, 7 })]
+        public void SortUtility_DataShouldSortAscending_UsingAnAnonymousMethod(int[] arr)
+        {
+            if (arr is null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            // Arrange
+            TraceOutput(arr);
+
+            // Act
+            SortUtility.Sort(arr, _LessThan);
+
+            // Assert
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Trace.Write(arr[i] + " ");
+                Assert.IsTrue(_LessThan(arr[i], arr[i + 1]));
+            }
+            Trace.WriteLine(arr[arr.Length - 1]);
+        }
+
+        [DataTestMethod]
+        [DataRow(new int[] { 2, 1, 3 })]
+        [DataRow(new int[] { -4, 5, 0, 9, 7 })]
+        public void SortUtility_DataShouldSortDescending_UsingLambdaExpression(int[] arr)
+        {
+            if (arr is null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            // Arrange
+            TraceOutput(arr);
+
+            // Act
+            SortUtility.Sort(arr, (i, j) => i > j);
+
+            // Assert
+            Trace.WriteLine("Sorted: ");
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Trace.Write(arr[i] + " ");
+                Assert.IsTrue(arr[i] >= arr[i + 1]);
             }
             Trace.WriteLine(arr[arr.Length - 1]);
         }
