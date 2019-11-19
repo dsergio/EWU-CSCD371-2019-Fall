@@ -57,7 +57,11 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] <= arr[i + 1]);
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
+            
         }
 
         [DataTestMethod]
@@ -83,10 +87,15 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(_LessThan(arr[i], arr[i + 1]));
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
         }
 
         [DataTestMethod]
+        [DataRow(new int[] { })]
+        [DataRow(new int[] { 1 })]
         [DataRow(new int[] { 2, 1, 3 })]
         [DataRow(new int[] { -4, 5, 0, 9, 7 })]
         public void SortUtility_DataShouldSortDescending_UsingLambdaExpression(int[] arr)
@@ -109,7 +118,10 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] >= arr[i + 1]);
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
         }
 
         [TestMethod]
@@ -129,7 +141,10 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] >= arr[i + 1]);
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
         }
 
         [TestMethod]
@@ -177,7 +192,10 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] >= arr[i + 1]);
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
         }
 
         [TestMethod]
@@ -202,8 +220,10 @@ namespace Sorter.Tests
                 Trace.Write(arr[i] + " ");
                 Assert.IsTrue(arr[i] % 2 <= arr[i + 1] % 2);
             }
-            Trace.WriteLine(arr[arr.Length - 1]);
-            //Assert.IsTrue(true);
+            if (arr.Length > 0)
+            {
+                Trace.WriteLine(arr[arr.Length - 1]);
+            }
         }
     }
 }

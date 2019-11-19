@@ -21,6 +21,11 @@ namespace Sorter
                 throw new ArgumentNullException(nameof(compare));
             }
 
+            if (arr.Length < 2)
+            {
+                return;
+            }
+
             QuickSort(arr, 0, arr.Length - 1, compare);
         }
 
