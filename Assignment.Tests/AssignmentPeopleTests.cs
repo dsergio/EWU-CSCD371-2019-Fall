@@ -10,7 +10,7 @@ namespace Assignment.Tests
     public class AssignmentPeopleTests
     {
         [TestMethod]
-        public void PeopleCsv_Stub_Stub()
+        public void PeopleCsv_GetUniqueSortedListOfStatesGivenCsvRows_Stub()
         {
             // Arrange
             ISampleData sampleData = new SampleData();
@@ -28,7 +28,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod]
-        public void PeopleCsv_Stub2_Stub()
+        public void PeopleCsv_GetAggregateSortedListOfStatesUsingCsvRows_Stub()
         {
             // Arrange
             ISampleData sampleData = new SampleData();
@@ -59,7 +59,7 @@ namespace Assignment.Tests
 
         [DataTestMethod]
         [DataRow("sdennington9@chron.com", "Scarface", "Dennington")]
-        public void PeopleCsv_Stub4_Stub(string email, string first, string last)
+        public void PeopleCsv_FilterByEmailAddress_Stub(string email, string first, string last)
         {
             // Arrange
             ISampleData sampleData = new SampleData();
@@ -78,7 +78,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod]
-        public void PeopleCsv_Stub5_Stub()
+        public void PeopleCsv_GetAggregateListOfStatesGivenPeopleCollection_Stub()
         {
             // Arrange
             ISampleData sampleData = new SampleData();
@@ -87,9 +87,7 @@ namespace Assignment.Tests
                 from person in sampleData.People
                 where person.Address.State == "WA"
                 select person;
-            
-
-            //IEnumerable<IPerson> ppl = sampleData.People.Select<IPerson, IPerson>(i => i.Address.State == "WA");
+           
 
             // Act
             string s = sampleData.GetAggregateListOfStatesGivenPeopleCollection(ppl);
