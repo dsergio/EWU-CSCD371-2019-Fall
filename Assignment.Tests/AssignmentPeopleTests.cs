@@ -46,6 +46,36 @@ namespace Assignment.Tests
         }
 
         [TestMethod]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedEmptyList_CorrectCount()
+        {
+            // Arrange
+            MemoryStream memoryStream = new MemoryStream();
+
+            using var writer = new StreamWriter(memoryStream, leaveOpen: true);
+            writer.WriteLine("Id,FirstName,LastName,Email,StreetAddress,City,State,Zip");
+            writer.Flush();
+            writer.Dispose();
+
+            SampleData sampleData = new SampleData(memoryStream);
+
+            // Act
+            IEnumerable<string> data = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            foreach (string s in data)
+            {
+                Console.WriteLine(s);
+            }
+
+            // Assert
+            Assert.AreEqual(0, data.Count());
+
+
+            // Clean up
+            sampleData.Dispose();
+
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         [ExcludeFromCodeCoverage]
         public void GetUniqueSortedListOfStatesGivenCsvRows_InvalidHardCodedList_ThrowsException()

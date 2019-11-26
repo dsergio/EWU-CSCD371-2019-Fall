@@ -28,7 +28,15 @@ namespace Assignment
             {
                 if (Source is null)
                 {
-                    return File.ReadAllLines("People.csv").Skip(1);
+                    if (File.Exists("People.csv"))
+                    {
+                        return File.ReadAllLines("People.csv").Skip(1);
+                    } 
+                    else
+                    {
+                        return new List<string>();
+                    }
+                    
                 }
                 else
                 {
