@@ -354,5 +354,31 @@ namespace Assignment.Tests
 
         }
 
+        [TestMethod]
+        public void PeopleProperty_GetAggregateListOfStatesGivenPeopleCollectionAllRows_ReturnsCorrectValue()
+        {
+
+            // Arrange
+            SampleData sampleData = new SampleData();
+
+            IEnumerable<IPerson> ppl =
+                from person in sampleData.People
+                select person;
+
+
+            // Act
+            string s = sampleData.GetAggregateListOfStatesGivenPeopleCollection(ppl);
+            Console.WriteLine(s);
+
+            string s2 = string.Join(",", sampleData.GetUniqueSortedListOfStatesGivenCsvRows());
+
+            // Assert
+            Assert.AreEqual(s2, s);
+
+            // Clean up
+            sampleData.Dispose();
+
+        }
+
     }
 }
