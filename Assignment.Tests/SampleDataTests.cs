@@ -10,7 +10,7 @@ using System.Text;
 namespace Assignment.Tests
 {
     [TestClass]
-    public class AssignmentPeopleTests
+    public class SampleDataTests
     {
         [TestMethod]
         public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedList_CorrectCount()
@@ -131,6 +131,35 @@ namespace Assignment.Tests
 
             // Assert
             Assert.AreEqual(d.Count(), data.Count());
+
+            // Clean up
+            sampleData.Dispose();
+
+        }
+
+        [TestMethod]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_UsingLinq_IsSorted()
+        {
+            // Arrange
+            SampleData sampleData = new SampleData();
+
+            IEnumerable<string> d = File.ReadAllLines("People.csv")
+                .Skip(1)
+                .Select(i => i.Split(",")[(int)SampleData.Column.State])
+                .OrderBy(i => i)
+                .Distinct()
+                ;
+
+            // Act
+            IEnumerable<string> data = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            // Assert
+            string[] arr = new string[data.Count()];
+            for (int i = 0; i < data.Count() - 1; i++)
+            {
+                int compareState = string.Compare(arr[i], arr[i + 1], StringComparison.CurrentCultureIgnoreCase);
+                Assert.IsTrue(compareState <= 0);
+            }
 
             // Clean up
             sampleData.Dispose();
@@ -325,56 +354,5 @@ namespace Assignment.Tests
 
         }
 
-        [DataTestMethod]
-        [DataRow("street")]
-        [DataRow("city")]
-        [DataRow("state")]
-        [DataRow("zip")]
-        [ExpectedException(typeof(ArgumentNullException))]
-        [ExcludeFromCodeCoverage]
-        public void Address_CreateAddressInvalid_ThrowsException(string type)
-        {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-            // Arrange
-
-            // Act
-            _ = new Address(
-                type == "street" ? null! : "street",
-                type == "city" ? null! : "city",
-                type == "state" ? null! : "state",
-                type == "zip" ? null! : "zip"
-                );
-
-            // Assert
-        }
-
-        [DataTestMethod]
-        [DataRow("first")]
-        [DataRow("last")]
-        [DataRow("address")]
-        [DataRow("email")]
-        [ExpectedException(typeof(ArgumentNullException))]
-        [ExcludeFromCodeCoverage]
-        public void Person_CreatePersonInvalid_ThrowsException(string type)
-        {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-            // Arrange
-
-            // Act
-            _ = new Person(
-                type == "first" ? null! : "first",
-                type == "last" ? null! : "last",
-                type == "address" ? null! : new Address("street", "city", "state", "zip"),
-                type == "email" ? null! : "email"
-                );
-
-            // Assert
-        }
     }
 }
