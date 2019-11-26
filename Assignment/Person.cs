@@ -17,5 +17,10 @@ namespace Assignment
         public string LastName { get; set; }
         public IAddress Address { get;set; }
         public string EmailAddress { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName} {EmailAddress} {Address}";
+        }
     }
 }

@@ -145,6 +145,53 @@ namespace Assignment.Tests
             sampleData.Dispose();
         }
 
+        [TestMethod]
+        public void PeopleProperty_UsingPeoplecsv_IsSorted()
+        {
+
+            // Arrange
+            SampleData sampleData = new SampleData();
+
+            // Act
+            IEnumerable<IPerson> ppl = sampleData.People;
+
+            // Assert
+            IPerson[] arr = ppl.ToArray();
+            for (int i = 0; i < ppl.Count() - 1; i++)
+            {
+                Console.WriteLine(arr[i].ToString());
+
+                int compareState = string.Compare(
+                    arr[i].Address.State,
+                    arr[i + 1].Address.State,
+                    System.StringComparison.CurrentCultureIgnoreCase
+                    );
+                int compareCity = string.Compare(
+                    arr[i].Address.City,
+                    arr[i + 1].Address.City,
+                    System.StringComparison.CurrentCultureIgnoreCase
+                    );
+                int compareZip = string.Compare(
+                    arr[i].Address.Zip,
+                    arr[i + 1].Address.Zip,
+                    System.StringComparison.CurrentCultureIgnoreCase
+                    );
+
+                Assert.IsTrue(compareState <= 0);
+                if (compareState == 0)
+                {
+                    Assert.IsTrue(compareCity <= 0);
+                    if (compareCity == 0)
+                    {
+                        Assert.IsTrue(compareZip <= 0);
+                    }
+                }
+            }
+
+            // Clean up
+            sampleData.Dispose();
+        }
+
         [DataTestMethod]
         [DataRow("sdennington9@chron.com", "Scarface", "Dennington")]
         [DataRow("ibester6@psu.edu", "Issiah", "Bester")]
