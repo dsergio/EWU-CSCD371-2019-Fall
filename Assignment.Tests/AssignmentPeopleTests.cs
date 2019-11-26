@@ -26,7 +26,7 @@ namespace Assignment.Tests
             writer.Dispose();
 
             SampleData sampleData = new SampleData(memoryStream);
-            
+
 
             // Act
             IEnumerable<string> data = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
@@ -39,7 +39,7 @@ namespace Assignment.Tests
 
             // Assert
             Assert.AreEqual(2, data.Count());
-            
+
 
             // Clean up
             sampleData.Dispose();
@@ -108,7 +108,7 @@ namespace Assignment.Tests
         [DataTestMethod]
         [DataRow("16,Ewart,Puckinghorne,epuckinghornef@indiatimes.com,9 Forster Lane,Lincoln,NE,40053")]
         [DataRow("8,Joly,Scneider,jscneider7@pagesperso-orange.fr,53 Grim Point,Spokane,WA,99022")]
-        public void PeopleProperty_UsingHardcodedCsvPeople_ReturnsCorrectValue(string? dataRow)
+        public void PeopleProperty_UsingHardcodedCsvPeople_ReturnsCorrectValue(string dataRow)
         {
             if (dataRow is null)
             {
@@ -147,8 +147,25 @@ namespace Assignment.Tests
 
         [DataTestMethod]
         [DataRow("sdennington9@chron.com", "Scarface", "Dennington")]
-        public void PeopleCsv_FilterByEmailAddress_Stub(string email, string first, string last)
+        [DataRow("ibester6@psu.edu", "Issiah", "Bester")]
+        [DataRow("cleathe1d@columbia.edu", "Claudell", "Leathe")]
+        public void PeopleCsv_FilterByEmailAddress_NameMatchesEmailRecord(string email, string first, string last)
         {
+            if (email is null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            if (first is null)
+            {
+                throw new ArgumentNullException(nameof(first));
+            }
+
+            if (last is null)
+            {
+                throw new ArgumentNullException(nameof(last));
+            }
+
             // Arrange
             SampleData sampleData = new SampleData();
 
@@ -168,23 +185,31 @@ namespace Assignment.Tests
 
         }
 
-        [TestMethod]
-        public void PeopleCsv_GetAggregateListOfStatesGivenPeopleCollection_Stub()
+        [DataTestMethod]
+        [DataRow("WA")]
+        [DataRow("OR")]
+        public void PeopleProperty_GetAggregateListOfStatesGivenPeopleCollection_ReturnsCorrectValue(string state)
         {
+            if (state is null)
+            {
+                throw new ArgumentNullException(nameof(state));
+            }
+
             // Arrange
             SampleData sampleData = new SampleData();
 
-            var ppl =
+            IEnumerable<IPerson> ppl =
                 from person in sampleData.People
-                where person.Address.State == "WA"
+                where person.Address.State == state
                 select person;
-           
+
 
             // Act
             string s = sampleData.GetAggregateListOfStatesGivenPeopleCollection(ppl);
             Console.WriteLine(s);
 
             // Assert
+            Assert.AreEqual(state, s);
 
             // Clean up
             sampleData.Dispose();
