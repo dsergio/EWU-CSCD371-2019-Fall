@@ -173,11 +173,11 @@ namespace Assignment.Tests
             IEnumerable<(string, string)> ppl = sampleData.FilterByEmailAddress(i => i == email);
 
             // Assert
-            foreach ((string firstName, string lastName) i in ppl)
+            foreach ((string firstName, string lastName) in ppl)
             {
-                Console.WriteLine(i.firstName + " " + i.lastName);
-                Assert.AreEqual<string>(first, i.firstName);
-                Assert.AreEqual<string>(last, i.lastName);
+                Console.WriteLine(firstName + " " + lastName);
+                Assert.AreEqual<string>(first, firstName);
+                Assert.AreEqual<string>(last, lastName);
             }
 
             // Clean up

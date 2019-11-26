@@ -12,9 +12,7 @@ namespace Assignment
             Source = source;
         }
 
-        public SampleData() : this(null)
-        {
-        }
+        public SampleData() : this(null) { }
 
         public Stream? Source { get; private set; }
 
@@ -31,11 +29,11 @@ namespace Assignment
                 if (Source is null)
                 {
                     return File.ReadAllLines("People.csv").Skip(1);
-                } 
+                }
                 else
                 {
                     Source.Position = 0;
-                    using StreamReader reader = new StreamReader(Source, leaveOpen:true);
+                    using StreamReader reader = new StreamReader(Source, leaveOpen: true);
                     string? line = reader.ReadLine();
                     List<string> rows = new List<string>();
                     while (line != null)
@@ -47,7 +45,7 @@ namespace Assignment
 
                     return rows.Skip(1);
                 }
-                
+
             }
         }
 
@@ -70,23 +68,32 @@ namespace Assignment
         }
 
         // 4.
-        public IEnumerable<IPerson> People => CsvRows.Select<string, Person>(i => {
-            string[] arr = i.Split(",");
-            Person p = new Person()
+        public IEnumerable<IPerson> People {
+            get
             {
-                FirstName = arr[(int)Column.FirstName],
-                LastName = arr[(int)Column.LastName],
-                Address = new Address()
+                IEnumerable<Person> ret = CsvRows.Select<string, Person>(i =>
                 {
-                    StreetAddress = arr[(int)Column.StreetAddress],
-                    City = arr[(int)Column.City],
-                    State = arr[(int)Column.State],
-                    Zip = arr[(int)Column.Zip],
-                },
-                EmailAddress = arr[(int)Column.Email]
-            };
-            return p;
-        });
+                    string[] arr = i.Split(",");
+                    Person p = new Person(
+                        arr[(int)Column.FirstName],
+                        arr[(int)Column.LastName],
+                        new Address(
+                            arr[(int)Column.StreetAddress],
+                            arr[(int)Column.City],
+                            arr[(int)Column.State],
+                            arr[(int)Column.Zip]
+                            ),
+                        arr[(int)Column.Email]
+                    );
+                    return p;
+                });
+                return ret
+                        .OrderBy(i => i.Address.State)
+                        .ThenBy(i => i.Address.City)
+                        .ThenBy(i => i.Address.Zip)
+                ;
+            }
+        }
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
@@ -103,15 +110,16 @@ namespace Assignment
                from person in people
                select person.Address.State;
 
-            string s = states.Distinct<string>().Aggregate((i, j) => i + "," + j);
-
-            return s;
+            return states.Distinct<string>()
+                .Aggregate((i, j) => i + "," + j);
         }
 
 
 
         #region IDisposable Support
+#pragma warning disable INTL0001 // Fields _PascalCase
         private bool disposedValue = false; // To detect redundant calls
+#pragma warning restore INTL0001 // Fields _PascalCase
 
         protected virtual void Dispose(bool disposing)
         {
@@ -130,6 +138,7 @@ namespace Assignment
             }
         }
 
+
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
         // ~SampleData()
         // {
@@ -138,7 +147,9 @@ namespace Assignment
         // }
 
         // This code added to correctly implement the disposable pattern.
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
         public void Dispose()
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
