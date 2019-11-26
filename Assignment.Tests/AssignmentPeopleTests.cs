@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,6 @@ namespace Assignment.Tests
 
             SampleData sampleData = new SampleData(memoryStream);
 
-
             // Act
             IEnumerable<string> data = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
@@ -36,13 +36,45 @@ namespace Assignment.Tests
                 Console.WriteLine(s);
             }
 
-
             // Assert
             Assert.AreEqual(2, data.Count());
 
 
             // Clean up
             sampleData.Dispose();
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [ExcludeFromCodeCoverage]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_InvalidHardCodedList_ThrowsException()
+        {
+            // Arrange
+            MemoryStream memoryStream = new MemoryStream();
+
+            using var writer = new StreamWriter(memoryStream, leaveOpen: true);
+            writer.WriteLine("Id,FirstName,LastName,Email,StreetAddress,City,State,Zip");
+            writer.WriteLine("8,Joly,Scneider,");
+            writer.WriteLine(",1 Rutledge Point,Spokane,WA,99021");
+            writer.WriteLine("20,Chelsy");
+            writer.Flush();
+            writer.Dispose();
+
+            SampleData sampleData = new SampleData(memoryStream);
+
+            // Act
+            IEnumerable<string> data = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            // Clean up
+            sampleData.Dispose();
+
+            foreach (string s in data)
+            {
+                Console.WriteLine(s);
+            }
+
+            // Assert
 
         }
 
@@ -261,6 +293,58 @@ namespace Assignment.Tests
             // Clean up
             sampleData.Dispose();
 
+        }
+
+        [DataTestMethod]
+        [DataRow("street")]
+        [DataRow("city")]
+        [DataRow("state")]
+        [DataRow("zip")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        [ExcludeFromCodeCoverage]
+        public void Address_CreateAddressInvalid_ThrowsException(string type)
+        {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            // Arrange
+
+            // Act
+            _ = new Address(
+                type == "street" ? null! : "street",
+                type == "city" ? null! : "city",
+                type == "state" ? null! : "state",
+                type == "zip" ? null! : "zip"
+                );
+
+            // Assert
+        }
+
+        [DataTestMethod]
+        [DataRow("first")]
+        [DataRow("last")]
+        [DataRow("address")]
+        [DataRow("email")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        [ExcludeFromCodeCoverage]
+        public void Person_CreatePersonInvalid_ThrowsException(string type)
+        {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            // Arrange
+
+            // Act
+            _ = new Person(
+                type == "first" ? null! : "first",
+                type == "last" ? null! : "last",
+                type == "address" ? null! : new Address("street", "city", "state", "zip"),
+                type == "email" ? null! : "email"
+                );
+
+            // Assert
         }
     }
 }

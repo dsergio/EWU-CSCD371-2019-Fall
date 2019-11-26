@@ -54,11 +54,11 @@ namespace Assignment
         {
             IEnumerable<string> ret =
                 from row in CsvRows
-                let state = row.Split(",")[(int)Column.State]
+                let state = row.Split(",").Length == 8 ? row.Split(",")[(int)Column.State] : throw new ArgumentException("CSV row doesn't have enough columns")
                 orderby state
                 select state;
 
-            return ret.Distinct<string>();
+            return ret.Distinct();
         }
 
         // 3.
@@ -74,6 +74,10 @@ namespace Assignment
                 IEnumerable<Person> ret = CsvRows.Select<string, Person>(i =>
                 {
                     string[] arr = i.Split(",");
+                    if (arr.Length != 8)
+                    {
+                        throw new ArgumentException("CSV row doesn't have enough columns");
+                    }
                     Person p = new Person(
                         arr[(int)Column.FirstName],
                         arr[(int)Column.LastName],
