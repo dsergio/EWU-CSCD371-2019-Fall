@@ -4,4 +4,7 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Assignment.Tests.AssignmentPeopleTests.PeopleCsv_GetUniqueSortedListOfStatesGivenCsvRows_Stub")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Assignment.Tests.AssignmentPeopleTests.GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedList_CorrectCount")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Assignment.Tests.AssignmentPeopleTests.GetUniqueSortedListOfStatesGivenCsvRows_UsingLinq_CorrectCount")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Assignment.Tests.AssignmentPeopleTests.GetAggregateSortedListOfStatesUsingCsvRows_UsingHardcodedData_ReturnsCorrectValue")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Assignment.Tests.AssignmentPeopleTests.PeopleProperty_UsingHardcodedCsvPeople_ReturnsCorrectValue(System.String)")]
