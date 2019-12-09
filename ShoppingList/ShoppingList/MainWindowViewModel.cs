@@ -25,6 +25,7 @@ namespace ShoppingList
         public ObservableCollection<ShoppingItem> ShoppingItemList { get; } = new ObservableCollection<ShoppingItem>();
 
         public Command AddItemCommand { get; }
+        public Command DeleteItemCommand { get; }
 
         private bool CanExecute { get; set; }
 
@@ -50,14 +51,23 @@ namespace ShoppingList
             ShoppingItemList.Add(new ShoppingItem("Coffee", true, 1, 1, UnitType.Pound));
             ShoppingItemList.Add(new ShoppingItem("Bananas", true, 5, 1, UnitType.Each));
             SelectedShoppingItem = ShoppingItemList.First();
+            CanExecute = true;
             AddItemCommand = new Command(OnAddItem, () => CanExecute);
+            DeleteItemCommand = new Command(OnDeleteItem, () => CanExecute);
         }
 
         private void OnAddItem()
         {
-            ShoppingItemList.Add(new ShoppingItem("Bananas", true, 5, 1, UnitType.Each));
+            ShoppingItemList.Add(new ShoppingItem(SelectedShoppingItem.Name, SelectedShoppingItem.Active, SelectedShoppingItem.Quantity, SelectedShoppingItem.Size, SelectedShoppingItem.Unit));
             CanExecute = true;
             AddItemCommand.InvokeCanExecuteChanged();
+        }
+
+        private void OnDeleteItem()
+        {
+            ShoppingItemList.Remove(SelectedShoppingItem);
+            CanExecute = true;
+            DeleteItemCommand.InvokeCanExecuteChanged();
         }
     }
 }

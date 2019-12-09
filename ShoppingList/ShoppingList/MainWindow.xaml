@@ -67,6 +67,14 @@
                     </Border>
                 </Button.Content>
             </Button>
+            <Button Command="{Binding DeleteItemCommand}" HorizontalContentAlignment="Center"
+                    >
+                <Button.Content>
+                    <Border>
+                        <TextBlock Text="Delete Shopping Item" />
+                    </Border>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
     </Grid>
