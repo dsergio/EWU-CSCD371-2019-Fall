@@ -35,5 +35,18 @@ namespace ShoppingList.Tests
             // Assert
             Assert.AreEqual("Hidden", str);
         }
+
+        [TestMethod]
+        public void ShoppingItemVisibleConverter_Null_ReturnsHidden()
+        {
+            // Arrange
+            ShoppingItemVisibleConverter shoppingItemVisibleConverter = new ShoppingItemVisibleConverter();
+
+            // Act
+            string str = (string)shoppingItemVisibleConverter.Convert(null);
+
+            // Assert
+            Assert.AreEqual("Hidden", str);
+        }
     }
 }

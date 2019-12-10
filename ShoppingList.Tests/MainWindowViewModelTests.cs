@@ -24,6 +24,20 @@ namespace ShoppingList.Tests
         }
 
         [TestMethod]
+        public void MainWindowViewModel_CreateItemCommand_ReturnsCorrectCount()
+        {
+            // Arrange
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            
+
+            // Act
+            mainWindowViewModel.CreateNewItemCommand.Execute(true);
+
+            // Assert
+            Assert.AreEqual(0, mainWindowViewModel.SelectedShoppingItem.Quantity);
+        }
+
+        [TestMethod]
         public void MainWindowViewModel_AddNullCommand_ReturnsCorrectCount()
         {
             // Arrange
