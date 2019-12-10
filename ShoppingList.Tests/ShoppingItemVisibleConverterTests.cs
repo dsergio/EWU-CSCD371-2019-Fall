@@ -9,7 +9,7 @@ namespace ShoppingList.Tests
     public class ShoppingItemVisibleConverterTests
     {
         [TestMethod]
-        public void Stub_Stub_Stub()
+        public void ShoppingItemVisibleConverter_ShoppingItem_ReturnsVisible()
         {
             // Arrange
             ShoppingItemVisibleConverter shoppingItemVisibleConverter = new ShoppingItemVisibleConverter();
@@ -23,7 +23,7 @@ namespace ShoppingList.Tests
         }
 
         [TestMethod]
-        public void Stub_Stub2_Stub()
+        public void ShoppingItemVisibleConverter_String_ReturnsHidden()
         {
             // Arrange
             ShoppingItemVisibleConverter shoppingItemVisibleConverter = new ShoppingItemVisibleConverter();

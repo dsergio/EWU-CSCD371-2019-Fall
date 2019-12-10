@@ -9,7 +9,7 @@ namespace ShoppingList.Tests
     public class ShoppingListTests
     {
         [TestMethod]
-        public void ShoppingList_Stub_Stub()
+        public void ShoppingList_Constructor_ReturnsCorrectName()
         {
             // Arrange
             ShoppingItem shoppingItem = new ShoppingItem("item 1", 1, 3.2, ShoppingItem.UnitType.Each);
