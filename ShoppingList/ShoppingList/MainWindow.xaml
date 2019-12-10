@@ -37,7 +37,7 @@
             <TextBlock Text="Quantity" />
             <TextBox Text="{Binding SelectedShoppingItem.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Size" />
-            <TextBox Text="{Binding SelectedShoppingItem.Size, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding SelectedShoppingItem.Size, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Unit" />
             <ComboBox Name="UnitTypeComboBox" FontFamily="{DynamicResource MaterialDesignFont}"
                 ItemsSource="{Binding UnitType}"
@@ -87,7 +87,7 @@
                     >
                 <Button.Content>
                     <Border>
-                        <TextBlock Text="Add New Item To Shopping List" />
+                        <TextBlock Text="Add Item To Shopping List" />
                     </Border>
                 </Button.Content>
             </Button>
@@ -96,9 +96,7 @@
                     >
                 <Button.Content>
                     <Border>
-                        <TextBlock Text="Delete Shopping Item" 
-                                   
-                                   />
+                        <TextBlock Text="Delete Shopping Item" />
                     </Border>
                 </Button.Content>
             </Button>

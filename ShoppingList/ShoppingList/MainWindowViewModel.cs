@@ -69,7 +69,7 @@ namespace ShoppingList
 
         private void OnCreateItem()
         {
-            SelectedShoppingItem = new ShoppingItem("", 0, 0, UnitType.Each);
+            SelectedShoppingItem = new ShoppingItem("New Item", 1, 1, UnitType.Each);
             CanExecute = true;
         }
 
