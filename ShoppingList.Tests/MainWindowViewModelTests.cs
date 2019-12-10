@@ -34,7 +34,7 @@ namespace ShoppingList.Tests
             mainWindowViewModel.CreateNewItemCommand.Execute(true);
 
             // Assert
-            Assert.AreEqual(0, mainWindowViewModel.SelectedShoppingItem.Quantity);
+            Assert.AreEqual(1, mainWindowViewModel.SelectedShoppingItem.Quantity);
         }
 
         [TestMethod]
