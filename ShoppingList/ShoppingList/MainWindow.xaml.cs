@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using MaterialDesignThemes.Wpf;
+using System;
+using System.Windows;
+using System.Windows.Media;
+using static ShoppingList.ShoppingItem;
 
 namespace ShoppingList
 {
@@ -11,6 +15,7 @@ namespace ShoppingList
         {
             this.DataContext = new MainWindowViewModel();
             InitializeComponent();
+            UnitTypeComboBox.ItemsSource = Enum.GetValues(typeof(UnitType));
         }
     }
 }

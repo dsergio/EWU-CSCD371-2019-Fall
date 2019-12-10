@@ -6,10 +6,20 @@
         xmlns:local="clr-namespace:ShoppingList"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
-        Title="MainWindow" Height="450" Width="800">
-    
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        
+        
+        Title="MainWindow" Height="450" Width="800"
+        >
 
-    
+    <Window.Resources>
+        <local:ShoppingItemVisibleConverter x:Key="ShoppingItemVisibleConverter"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -21,15 +31,18 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0">
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
             <TextBlock Text="Name" />
-            <TextBox Text="{Binding SelectedShoppingItem.Name}"/>
+            <TextBox Text="{Binding SelectedShoppingItem.Name}" />
             <TextBlock Text="Quantity" />
             <TextBox Text="{Binding SelectedShoppingItem.Quantity}"/>
             <TextBlock Text="Size" />
             <TextBox Text="{Binding SelectedShoppingItem.Size}"/>
             <TextBlock Text="Unit" />
-            <TextBox Text="{Binding SelectedShoppingItem.Unit}"/>
+            <ComboBox Name="UnitTypeComboBox" FontFamily="{DynamicResource MaterialDesignFont}"
+                ItemsSource="{Binding UnitType}"
+                SelectedItem="{Binding SelectedShoppingItem.Unit}"
+                />
         </StackPanel>
 
         <ListBox
@@ -59,19 +72,31 @@
         </ListBox>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <Button Command="{Binding AddItemCommand}" HorizontalContentAlignment="Center"
+            <Button Command="{Binding CreateNewItemCommand}" HorizontalContentAlignment="Center"
                     >
                 <Button.Content>
                     <Border>
-                        <TextBlock Text="Add New Shopping Item" />
+                        <TextBlock Text="Create New Shopping Item" />
+                    </Border>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding AddItemCommand}" HorizontalContentAlignment="Center"
+                    Visibility="{Binding SelectedShoppingItem, Converter={StaticResource ShoppingItemVisibleConverter}}"
+                    >
+                <Button.Content>
+                    <Border>
+                        <TextBlock Text="Add New Item To Shopping List" />
                     </Border>
                 </Button.Content>
             </Button>
             <Button Command="{Binding DeleteItemCommand}" HorizontalContentAlignment="Center"
+                    Visibility="{Binding SelectedShoppingItem, Converter={StaticResource ShoppingItemVisibleConverter}}"
                     >
                 <Button.Content>
                     <Border>
-                        <TextBlock Text="Delete Shopping Item" />
+                        <TextBlock Text="Delete Shopping Item" 
+                                   
+                                   />
                     </Border>
                 </Button.Content>
             </Button>
