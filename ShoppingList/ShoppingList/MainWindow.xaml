@@ -13,14 +13,14 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         
         
-        Title="MainWindow" Height="450" Width="800"
+        Title="CSCD371 Assignment 9" Height="450" Width="800"
         >
 
     <Window.Resources>
         <local:ShoppingItemVisibleConverter x:Key="ShoppingItemVisibleConverter"/>
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="10 10 10 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -33,15 +33,15 @@
 
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
             <TextBlock Text="Name" />
-            <TextBox Text="{Binding SelectedShoppingItem.Name}" />
+            <TextBox Text="{Binding SelectedShoppingItem.Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Quantity" />
-            <TextBox Text="{Binding SelectedShoppingItem.Quantity}"/>
+            <TextBox Text="{Binding SelectedShoppingItem.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Size" />
-            <TextBox Text="{Binding SelectedShoppingItem.Size}"/>
+            <TextBox Text="{Binding SelectedShoppingItem.Size, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Unit" />
             <ComboBox Name="UnitTypeComboBox" FontFamily="{DynamicResource MaterialDesignFont}"
                 ItemsSource="{Binding UnitType}"
-                SelectedItem="{Binding SelectedShoppingItem.Unit}"
+                SelectedItem="{Binding SelectedShoppingItem.Unit, UpdateSourceTrigger=PropertyChanged}"
                 />
         </StackPanel>
 
@@ -70,8 +70,7 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-
-        <StackPanel Grid.Row="2" Grid.Column="1">
+        <StackPanel Grid.Row="4" Grid.Column="0">
             <Button Command="{Binding CreateNewItemCommand}" HorizontalContentAlignment="Center"
                     >
                 <Button.Content>
@@ -80,6 +79,9 @@
                     </Border>
                 </Button.Content>
             </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            
             <Button Command="{Binding AddItemCommand}" HorizontalContentAlignment="Center"
                     Visibility="{Binding SelectedShoppingItem, Converter={StaticResource ShoppingItemVisibleConverter}}"
                     >

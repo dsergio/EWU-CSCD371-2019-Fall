@@ -1,7 +1,7 @@
 # EWU-CSCD371-2019-Fall
 
 ## Assignment 9
-0
+
 For this assignment you will be creating a simple shopping list application using WPF. This assignment should be completed using the [MVVM design pattern](https://intellitect.com/getting-started-model-view-viewmodel-mvvm-pattern-using-windows-presentation-framework-wpf/).
 
 #### Main Window
